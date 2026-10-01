@@ -1,0 +1,7 @@
+*.pdf
+!docs/example.pdf
+tests/**/out/
+tests/**/diff/
+*.local.md
+.direnv/
+archive/

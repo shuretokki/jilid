@@ -116,7 +116,8 @@
     // none removes it.
     leader: ".",
     // "list" starts every title in a list at the same place.
-    // "all" uses one place for every list.
+    // "all" uses one place for the figure, table, code and appendix lists.
+    // DAFTAR ISI always uses its own place.
     // none puts each title right after its number.
     align-numbers: "list",
   ),

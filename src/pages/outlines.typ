@@ -3,7 +3,7 @@
 #import "../rules/figures.typ": figure-number
 
 // The label that marks where the appendix headings start.
-// `matter.flow` puts it after the LAMPIRAN-LAMPIRAN title.
+// `matter.flow` puts it after the appendices title.
 #let appendices-start = <jilid-appendices-start>
 
 // A list row: `prefix` and `title`, the leader and the page number, linked to `loc`.
@@ -59,6 +59,8 @@
 
 // The width of the number column in the list `name`.
 // `name` is "toc", "back" or a figure kind.
+// With "all", the figure, table, code and appendix lists share one width.
+// DAFTAR ISI always keeps its own width.
 // none puts the number right before the title.
 #let number-width(cfg, name) = {
   let mode = cfg.outlines.align-numbers
@@ -78,9 +80,9 @@
       .filter(f => f.caption != none and f.at("outlined", default: true))
       .map(figure-prefix)
   }
-  let names = if mode == "all" { ("toc", "back", image, table, raw) } else {
-    (name,)
-  }
+  let names = if mode == "all" and name != "toc" {
+    ("back", image, table, raw)
+  } else { (name,) }
   widest(names.map(rows).flatten())
 }
 

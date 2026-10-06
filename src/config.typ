@@ -62,6 +62,9 @@
     caption-size: 10pt,
     caption-gap: 1em,
     table-size: 10pt,
+    // text style of web links.
+    // `font: auto` uses the code font.
+    url: (font: auto, size: 0.85em, fill: blue.darken(20%), underline: true),
     // a function that draws each caption from its parts.
     caption: auto,
   ),
@@ -196,6 +199,7 @@
   "cover.id",
   "cover.institution",
   "footer.text",
+  "typography.url",
   "outlines.h1",
 )
 

@@ -282,6 +282,11 @@ for example:
   default: `10pt`\
   description: Text size inside tables.
 
+- `url`\
+  type: [dictionary]\
+  default: `(font: auto, size: 0.85em, fill: blue.darken(20%), underline: true)`\
+  description: Text style of web links. `font: auto` uses the code font. for example, `url: (font: "Libertinus Serif", size: 1em)` writes links in the body font.
+
 - `caption`\
   type: [function] or [auto]\
   default: `auto`\

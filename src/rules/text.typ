@@ -1,3 +1,5 @@
+#import "../utils.typ": styled
+
 // font, language, links, table cells.
 #let text-rules(cfg, body) = {
   let font = cfg.typography.font-family
@@ -9,7 +11,13 @@
 
   show link: it => {
     if type(it.dest) == str {
-      text(fill: blue.darken(20%), underline(it))
+      let style = cfg.typography.url
+      if style.at("font", default: auto) == auto {
+        style.font = if cfg.code.font == auto { "DejaVu Sans Mono" } else {
+          cfg.code.font
+        }
+      }
+      styled(style, it)
     } else {
       it
     }

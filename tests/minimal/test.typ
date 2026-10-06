@@ -1,10 +1,10 @@
-// every option at its default, with nested numbered and bullet lists.
+// every option at its default, with nested numbered and bullet lists and a web link.
 #import "/lib.typ": *
 #show: jilid
 
 = Satu
 
-#lorem(30)
+#lorem(30) https://typst.app/universe
 
 + #lorem(12)
 + #lorem(6)

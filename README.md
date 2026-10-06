@@ -531,22 +531,22 @@ the error message lists the missing ones.
 ## Functions
 
 - `frontmatter(title: none, label: none)[..]`\
-  description: Front matter pages. The title is styled like a chapter title. Use `==` for headings inside. `label` lets you refer to the page, e.g. `label: <abstrak>` and `@abstrak` gives "Abstrak (halaman ii)".
+  description: A front matter page, such as Kata Pengantar or Abstrak. jilid puts it before the table of contents and shows the title like a chapter title, without a number. Use `==` for headings inside. With `label: <abstrak>`, `@abstrak` gives "Abstrak (halaman ii)".
 
 - `appendix(title: none, label: none)[..]`\
-  description: One appendix, numbered by call order: "Lampiran 1. Title", ... `label` lets you refer to it, e.g. `label: <kuesioner>` and `@kuesioner`.
+  description: One appendix, such as Lampiran 1. Kuesioner. jilid puts it after the bibliography and numbers it by the order you write them. Use `==` for headings inside. With `label: <kuesioner>`, `@kuesioner` gives "Lampiran 1".
 
 - `signature(role: none, name: none, id: none, id-label: "NIP", space: 2cm, underline-name: false, alignment: center)`\
-  description: One signature with role, space to sign, bold name and id. Never split across pages.
+  description: One signature block, with a role, space to sign, a name and an ID. jilid keeps the block on one page.
 
 - `signatures(..signature, header: none, columns: 2, gutter: 1cm)`\
-  description: Signatures under a full-width `header`, such as place, date and "Mengetahui,". `columns` per row, names lined up, and a shorter last row in the center.
+  description: Signature blocks in rows, under a header that spans the full width, such as the place, the date and "Mengetahui,". Names in a row are level. If the last row has fewer signatures, jilid puts it in the center.
 
 - `set-footer-text(content)`\
-  description: Change the footer text from this page on. `none` restores `footer.left`.
+  description: Changes the footer text from this page on. If you give `none`, jilid shows the `footer.left` text again.
 
 - `zebraw`\
-  description: Re-exported from the zebraw package, for highlighted lines and comments.
+  description: The zebraw package, for highlighted lines and comments in code blocks.
 
 ## Migrating from 0.1
 

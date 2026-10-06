@@ -8,6 +8,8 @@
 /// The name is bold. If there is no ID, jilid keeps an empty line in its place, so names in a row stay level.
 /// To put signatures side by side, give them to `signatures`.
 ///
+/// = Example
+///
 /// ```example
 /// #signature(
 ///   role: [Dosen Pembimbing],
@@ -65,6 +67,8 @@
 /// If the last row has fewer signatures, jilid puts it in the center.
 /// jilid keeps the header on the same page as the first row.
 ///
+/// = Example
+///
 /// ```example
 /// #signatures(
 ///   header: [Kota, 1 Januari 2026 \ Mengetahui,],
@@ -118,6 +122,8 @@
 /// Changes the footer text from this page on.
 ///
 /// If you give `none`, jilid shows the `footer.left` text again.
+///
+/// = Example
 ///
 /// ```example
 /// #set-footer-text[Bab II Tinjauan Pustaka]

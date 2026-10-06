@@ -1,5 +1,3 @@
-// `lang` picks the default words.
-// `labels` replaces single words.
 #let strings = (
   course: (id: "Mata Kuliah :", en: "Course :"),
   lecturer: (id: "Dosen Pengampu :", en: "Lecturer :"),

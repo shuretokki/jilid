@@ -44,6 +44,8 @@
 /// For a heading inside the page, use `==` or deeper.
 /// If you write a `=` heading inside, jilid stops with an error.
 ///
+/// = Example
+///
 /// ```example
 /// #frontmatter(title: [Kata Pengantar])[
 ///   Puji syukur ...
@@ -67,7 +69,7 @@
   [#metadata((kind: sections.front, title: title, body: body)) <jilid-matter>]
 }
 
-/// One appendix, such as Lampiran 1. Kuesioner.
+/// One appendix, such as Lampiran 1.
 ///
 /// jilid puts every appendix after the bibliography, in the order you write them.
 /// You can write them anywhere in the file.
@@ -75,6 +77,8 @@
 /// Figures, tables and equations inside get the appendix number, such as Gambar L1.2.
 /// For a heading inside the appendix, use `==` or deeper.
 /// If you write a `=` heading inside, jilid stops with an error.
+///
+/// = Example
 ///
 /// ```example
 /// #appendix(title: [Kuesioner], label: <kuesioner>)[

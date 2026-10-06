@@ -17,6 +17,9 @@
 /// Each option group, such as `cover` or `footer`, takes only the keys that you change.
 /// The README lists every key and its default value.
 ///
+/// = Example
+/// = Example
+///
 /// ```example
 /// #show: jilid.with(
 ///   title: [Judul Laporan],

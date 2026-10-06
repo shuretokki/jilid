@@ -14,12 +14,10 @@
 ///
 /// Use it as a show rule at the top of the file.
 /// jilid makes the cover, the front matter, the lists of contents, figures and tables, the chapters, the bibliography and the appendices.
-/// Each option group, such as `cover` or `footer`, takes only the keys that you change.
-/// The README lists every key and its default value.
 ///
 /// = Example
 ///
-/// ```example
+/// ```
 /// #show: jilid.with(
 ///   title: [Judul Laporan],
 ///   students: (name: "Nama Mahasiswa", id: "1000000001"),
@@ -29,6 +27,22 @@
 ///
 /// = Pendahuluan
 /// ```
+///
+/// = Options
+///
+/// Each option group takes a dictionary with only the keys that you change, such as `footer: (left: [Laporan Akhir])`.
+/// These are the keys of each group:
+///
+/// / cover: `top`, `logo-width`, `kind-pos`, `gap`, `gap-institution`, `gap-logo`, `student-columns`, `student-id-pos`, `title`, `kind`, `subtitle`, `details`, `label`, `course`, `lecturer-name`, `student-name`, `id`, `institution`, `institution-order`, `institution-render`, `render`
+/// / footer: `enabled`, `left`, `show-page-number`, `page-number-align`, `text`, `render`
+/// / typography: `font-family`, `font-size`, `caption-size`, `caption-gap`, `table-size`, `url`, `caption`
+/// / paragraph: `justify`, `indent`, `leading`, `spacing`, `list-indent`, `marker-width`
+/// / numbering: `front`, `back`, `position`, `chapter`, `appendix`, `heading`, `appendix-prefix`
+/// / outlines: `depth`, `toc`, `figures`, `tables`, `codes`, `appendices`, `toc-appendices`, `h1`, `leader`, `align-numbers`
+/// / headings: `h1`, `h2`, `h3`, `h4`, `appendix`
+/// / code: `fill`, `font`, `size`, `zebraw`
+///
+/// The README gives the type, the default value and a description for each key.
 ///
 /// - title (content, str): The document title. If it is not empty, jilid makes a cover.
 /// - kind (content, str, none): The document type, such as Laporan Praktikum or Skripsi.

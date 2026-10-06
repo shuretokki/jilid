@@ -10,7 +10,7 @@
 ///
 /// = Example
 ///
-/// ```example
+/// ```
 /// #signature(
 ///   role: [Dosen Pembimbing],
 ///   name: "Nama Dosen",
@@ -69,7 +69,7 @@
 ///
 /// = Example
 ///
-/// ```example
+/// ```
 /// #signatures(
 ///   header: [Kota, 1 Januari 2026 \ Mengetahui,],
 ///   signature(role: [Dosen], name: "Nama Dosen"),
@@ -125,7 +125,7 @@
 ///
 /// = Example
 ///
-/// ```example
+/// ```
 /// #set-footer-text[Bab II Tinjauan Pustaka]
 /// ```
 ///

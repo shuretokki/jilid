@@ -102,7 +102,7 @@
 ///
 /// = Example
 ///
-/// ```example
+/// ```
 /// #appendix(title: [Kuesioner], label: <kuesioner>)[
 ///   Daftar pertanyaan ...
 /// ]

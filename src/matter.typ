@@ -22,13 +22,29 @@
   }
 }
 
+// fail on an argument removed in 0.2.
+#let check-removed(args, fn) = {
+  let named = args.named().keys()
+  if named.len() > 0 {
+    panic(
+      "jilid: `"
+        + fn
+        + "` takes only `title:` since 0.2, remove "
+        + named.map(k => "`" + k + "`").join(", ")
+        + ". See \"Migrating from 0.1\" in the README.",
+    )
+  }
+}
+
 // a front matter page such as Kata Pengantar or Abstrak.
 // it renders before the table of contents, wherever you write it.
 #let frontmatter(
   // styled like a chapter title, centered and unnumbered.
   title: none,
+  ..removed,
   body,
 ) = {
+  check-removed(removed, "frontmatter")
   check-body(body, "frontmatter")
   [#metadata((kind: sections.front, title: title, body: body)) <jilid-matter>]
 }
@@ -53,6 +69,11 @@
     body: body,
   )) <jilid-matter>]
 }
+
+// renamed to `appendix` in 0.2.
+#let appendices(..args) = panic(
+  "jilid: `appendices` is `appendix(title: [..])[..]` since 0.2, one call per appendix. See \"Migrating from 0.1\" in the README.",
+)
 
 #let blocks-of(kind) = query(<jilid-matter>).filter(m => m.value.kind == kind)
 

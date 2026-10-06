@@ -1,7 +1,7 @@
 // > Compile-only.
 // bad options fail with a `jilid:` message naming the problem
 // valid partial options compile.
-#import "/lib.typ": appendix, frontmatter, jilid, signatures
+#import "/lib.typ": appendices, appendix, frontmatter, jilid, signatures
 
 #let fails-with(needle, ..args) = {
   let msg = catch(() => jilid(..args, []))
@@ -58,6 +58,14 @@
 )
 #let msg = catch(() => appendix(label: "data")[])
 #assert(msg != none and msg.contains("`appendix(label: ..)` must be a label"))
+#let msg = catch(() => appendices[x])
+#assert(
+  msg != none and msg.contains("`appendices` is `appendix(title: [..])[..]`"),
+)
+#let msg = catch(() => frontmatter(numbering: "I", start-page: 3)[x])
+#assert(
+  msg != none and msg.contains("remove `numbering`, `start-page`"),
+)
 
 
 // Valid partial options must not panic.

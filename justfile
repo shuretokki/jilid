@@ -36,10 +36,10 @@ PACKAGES := env("JILID_PACKAGES", "../typst-packages")
     just _render docs/example.typ docs/example.pdf
     echo "docs/example.pdf: $(du -h docs/example.pdf | cut -f1)"
 
-# Write CHANGELOG.md, with new commits under the typst.toml version
+# Print a CHANGELOG.md draft for the commits since the last tag
 [group("release")]
 @changelog:
-    git-cliff --tag "v$(just _version)" -o CHANGELOG.md
+    git-cliff --unreleased --tag "v$(just _version)" 2>/dev/null
 
 # Test the package built from the last commit, without touching the packages repo
 [group("release")]

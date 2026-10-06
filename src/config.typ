@@ -122,7 +122,8 @@
     align-titles: "each",
     // Where titles start in DAFTAR ISI.
     // "title" lines up the chapter titles, and a row below chapter level starts under the title of the level above.
-    // A length, such as 1cm, also lines up the chapter titles and moves each lower level by that length. 0cm puts the rows below at the left.
+    // A length, such as 1cm, also lines up the chapter titles and moves each lower level by that length.
+    // 0cm puts the rows below chapter level at the left.
     // auto puts each title right after its number and uses the Typst default for the rows below.
     toc-indent: "title",
   ),

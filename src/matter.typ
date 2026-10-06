@@ -25,6 +25,7 @@
       heading(level: 1, numbering: none, outlined: outlined, title)
     }
     set figure(outlined: false)
+    set heading(numbering: none)
     body
   },
 )) <jilid-matter>]
@@ -102,6 +103,7 @@
   pagebreak(weak: true)
   section.update(sections.main)
   counter(page).update(1)
+  counter(heading).update(0)
   [#metadata(none) <jilid-section-body>]
   body
 

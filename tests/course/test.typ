@@ -1,6 +1,8 @@
-// several lecturers and students, kind above title,
-// report cover even with kind SKRIPSI, headings without page break,
-// program above university and no faculty line.
+// Several lecturers and students, with the kind above the title.
+// The cover stays a report cover, even with the kind SKRIPSI.
+// Chapters do not start on a new page.
+// The program is above the university, and the faculty line is hidden.
+// With `toc-indent: auto`, DAFTAR ISI puts each chapter title right after its number.
 #import "/lib.typ": *
 #show: jilid.with(
   title: [Laporan Praktikum Basis Data],
@@ -28,9 +30,12 @@
   year: "2026",
   headings: (h1: (size: 14pt, above: 0pt, below: 12pt, pagebreak: false)),
   code: (zebraw: false),
+  outlines: (toc-indent: auto),
 )
 
 = Pertama
+
+== Subbab Pertama
 
 #lorem(20)
 

@@ -1,5 +1,7 @@
-// titles in each list start at one place: BAB I to BAB X,
-// Gambar 1.1 to 1.11, Lampiran 1 to 11 and a wrapped title.
+// Titles in each list start at one place.
+// DAFTAR ISI has BAB I to BAB X and a title on two lines, with the default `toc-indent: "title"`.
+// Daftar Gambar has Gambar 1.1 to 1.11, with the default `align-titles: "each"`.
+// Daftar Lampiran has Lampiran 1 to 11.
 #import "/lib.typ": *
 #show: jilid.with(headings: (h1: (pagebreak: false)))
 

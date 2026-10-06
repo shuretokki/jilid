@@ -1,4 +1,5 @@
-// user-set student columns: 5 students in 2 columns, ids below the names, the last cell empty.
+// The user sets 2 student columns for 5 students.
+// The IDs go under the names, and the last cell stays empty.
 #import "/lib.typ": *
 #show: jilid.with(
   title: [Laporan Praktikum],

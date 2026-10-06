@@ -1,5 +1,6 @@
-// many authors on one cover: 10 students in the group table, 3 lecturers
-// (one without an id), long names and a long title. the cover must stay one page.
+// A cover with many authors: 10 students, 3 lecturers and a long title.
+// One lecturer has no ID, and the names are long.
+// The cover must stay on one page.
 #import "/lib.typ": *
 #show: jilid.with(
   title: [Sistem Informasi Manajemen Data Kegiatan Kemahasiswaan Berbasis Web dengan Modul Pelaporan Otomatis],

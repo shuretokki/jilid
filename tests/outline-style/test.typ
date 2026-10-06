@@ -1,5 +1,6 @@
-// outline styling: regular chapter rows, no leader, one number column for all lists,
-// every DAFTAR ISI row at the left.
+// Chapter rows in regular weight, without a leader.
+// `toc-indent: 0cm` lines up the chapter titles and puts the rows below at the left.
+// `align-titles: "shared"` gives Daftar Gambar and Daftar Lampiran one place for titles.
 #import "/lib.typ": *
 #show: jilid.with(
   outlines: (

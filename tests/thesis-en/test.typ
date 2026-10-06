@@ -1,3 +1,7 @@
+// An English thesis on A5 paper with 4 heading levels.
+// Page numbers are at the top right, and the footer is custom.
+// Appendices use letters, and DAFTAR ISI lists them.
+// `toc-indent: 1cm` lines up the chapter titles and moves each lower level by 1cm.
 #import "/lib.typ": *
 #show: jilid.with(
   title: [Sentiment Analysis of App Reviews],
@@ -38,7 +42,7 @@
     appendix-prefix: false,
     position: "top",
   ),
-  outlines: (depth: 4, toc-appendices: true),
+  outlines: (depth: 4, toc-appendices: true, toc-indent: 1cm),
   code: (zebraw: (lang: false), font: "DejaVu Sans Mono"),
   paper: "a5",
   margin: "digital",

@@ -1,6 +1,6 @@
 // > Compile-only.
-// bad options fail with a `jilid:` message naming the problem
-// valid partial options compile.
+// A bad option stops with a `jilid:` message that names the problem.
+// Valid options that set only some keys compile.
 #import "/lib.typ": appendices, appendix, frontmatter, jilid, signatures
 
 #let fails-with(needle, ..args) = {
@@ -82,7 +82,7 @@
 )
 
 
-// Valid partial options must not panic.
+// Valid options that set only some keys must not stop with an error.
 #assert.eq(catch(() => jilid(headings: (h1: (size: 14pt)), [])), none)
 #assert.eq(catch(() => jilid(labels: (toc: [ISI]), [])), none)
 #assert.eq(catch(() => jilid(students: (name: [Budi *S*], id: "1"), [])), none)

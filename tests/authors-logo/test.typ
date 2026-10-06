@@ -1,5 +1,6 @@
-// 20 students with a logo, the group under "Disusun oleh :": auto columns and 10pt student text keep the cover on one page.
-// institution lines on one row.
+// A cover with a logo and 20 students under "Disusun oleh :".
+// Automatic columns and 10pt student text keep the cover on one page.
+// The institution lines are on one row.
 #import "/lib.typ": *
 #show: jilid.with(
   title: [Sistem Informasi Manajemen Data Kegiatan Kemahasiswaan Berbasis Web],

@@ -1,10 +1,13 @@
-// figure, table, code and equation numbers per part: front matter "1",
-// chapters "1.1", appendices "L1.1" restarting in each appendix.
-// front and appendix figures stay out of the lists. appendix titles in capitals.
+// Figure, table, code and equation numbers in each part:
+// "1" in the front matter, "1.1" in chapters and "L1.1" in appendices.
+// The numbers restart in each appendix.
+// Figures in the front matter and in appendices stay out of the lists.
+// Appendix titles are in capitals.
+// With `align-titles: none`, each list title comes right after its number.
 #import "/lib.typ": *
 #show: jilid.with(
   include-cover: false,
-  outlines: (toc: false),
+  outlines: (toc: false, align-titles: none),
   headings: (appendix: (uppercase: true)),
 )
 

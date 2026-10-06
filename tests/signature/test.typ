@@ -1,10 +1,10 @@
-// a small page, so a breakable block would split.
+// A small page, where a block that can break would split.
 #import "/lib.typ": signature, signatures
 #set page(width: 12cm, height: 9cm, margin: 1cm)
 #set par(justify: true, first-line-indent: (amount: 0.63cm, all: true))
 
-// different role heights, with and without id: names must line up with
-// `align: bottom`.
+// The roles have different heights, and one signature has no ID.
+// The names must line up with `align: bottom`.
 #grid(
   columns: (1fr, 1fr, 1fr),
   align: bottom,
@@ -20,7 +20,8 @@
 )
 
 #v(1fr)
-// starts near the page bottom: must move to page 2 as a whole.
+// This block starts near the bottom of the page.
+// It must move to page 2 as a whole.
 #signature(role: [Dosen Pembimbing], name: "Kept Together", id: "4")
 
 #grid(
@@ -37,7 +38,8 @@
 )
 
 #pagebreak()
-// header across the full width, two per row, odd last one centered.
+// A header across the full width and two signatures in each row.
+// The last row has one signature, in the center.
 #signatures(
   header: [Kota, 1 Januari 2026 \ Mengetahui,],
   gutter: 0.5cm,

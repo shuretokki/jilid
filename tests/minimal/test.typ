@@ -1,4 +1,5 @@
-// every option at its default, with nested numbered and bullet lists and a web link.
+// Every option at its default value.
+// The body has nested numbered and bullet lists and a web link.
 #import "/lib.typ": *
 #show: jilid
 

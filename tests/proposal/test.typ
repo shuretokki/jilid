@@ -1,4 +1,5 @@
-// MBKM proposal with every common feature.
+// An MBKM proposal with every common feature.
+// The text refers to a frontmatter page and an appendix by label.
 #import "/lib.typ": *
 #show: jilid.with(
   title: [Proposal Program Mahasiswa Berdampak],

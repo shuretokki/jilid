@@ -1,4 +1,4 @@
-// render hooks, a boxed cover, a footer with "Halaman n", bold captions with a period.
+// Render hooks: a cover in a box, a footer with "Halaman n" and bold captions with a period.
 #import "/lib.typ": *
 #show: jilid.with(
   title: [Judul Laporan],

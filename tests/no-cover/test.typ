@@ -1,5 +1,7 @@
-// no cover, no TOC, no figures, footer text changed mid-document,
-// untitled frontmatter with its own outline, a web link in the body font.
+// No cover, no DAFTAR ISI and no figures.
+// The footer text changes in the middle of the document.
+// A frontmatter page without a title has its own outline.
+// The web link uses the body font.
 #import "/lib.typ": *
 #show: jilid.with(
   title: "Tanpa Sampul",

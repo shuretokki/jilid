@@ -1,7 +1,7 @@
-// outline styling: regular chapter rows and no leader.
+// outline styling: regular chapter rows, no leader, one number column for all lists.
 #import "/lib.typ": *
 #show: jilid.with(
-  outlines: (h1: (weight: "regular"), leader: none),
+  outlines: (h1: (weight: "regular"), leader: none, align-numbers: "all"),
 )
 
 = Pendahuluan

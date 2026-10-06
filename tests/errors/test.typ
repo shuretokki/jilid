@@ -31,6 +31,9 @@
 #fails-with("`students` must be a list", students: "Budi")
 #fails-with("unknown option `footer.mode`", footer: (mode: "grid"))
 #fails-with("`numbering.back` must be one of", numbering: (back: "Body"))
+#fails-with("`outlines.align-numbers` must be one of", outlines: (
+  align-numbers: "page",
+))
 #fails-with("`cover.kind-pos` must be one of", cover: (kind-pos: "above"))
 #fails-with("unknown option `cover.formal`", cover: (formal: true))
 #fails-with("`cover.title` expects a dictionary", cover: (title: 20pt))

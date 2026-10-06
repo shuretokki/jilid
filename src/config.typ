@@ -113,6 +113,10 @@
     // text repeated between an entry and its page number.
     // none removes it.
     leader: ".",
+    // "list" starts every title in a list at the same place.
+    // "all" does it with one place for every list.
+    // none puts each title right after its number.
+    align-numbers: "list",
   ),
   headings: (
     // affects chapter and front-matter titles.
@@ -171,6 +175,7 @@
   "typography.caption": hook,
   "numbering.back": one-of("body", "front"),
   "numbering.position": one-of("bottom", "top"),
+  "outlines.align-numbers": one-of("list", "all", none),
   "code.zebraw": (
     check: v => type(v) in (bool, dictionary),
     message: "must be true, false, or a dictionary of zebraw options, e.g. `(lang: false)`",

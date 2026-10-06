@@ -420,6 +420,11 @@ for example:
   default: `"."`\
   description: Text repeated between an entry and its page number. `none` removes it.
 
+- `align-numbers`\
+  type: [str] or `none`\
+  default: `"list"`\
+  description: `"list"` starts every title in a list at the same place, after the widest number such as "BAB VIII" or "Gambar 2.10". `"all"` uses one place for every list. `none` puts each title right after its number.
+
 ### `footer`
 
 - `enabled`\

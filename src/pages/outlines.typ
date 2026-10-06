@@ -2,25 +2,86 @@
 #import "../utils.typ": h1-number, h1-title, styled
 #import "../rules/figures.typ": figure-number
 
-// `body`, the leader and the page number, linked to `loc`.
-#let dotted-row(cfg, loc, body) = link(loc, grid(
-  columns: (1fr, auto),
-  column-gutter: 0.5em,
-  align: (left, bottom),
-  [#body #if cfg.outlines.leader == none { h(1fr) } else {
-      box(width: 1fr, inset: (x: 2pt), repeat(cfg.outlines.leader))
-    }],
-  [#context page-label(cfg, loc)],
-))
+// mark where the appendix headings start.
+// `matter.flow` puts it after the LAMPIRAN-LAMPIRAN title.
+#let appendices-start = <jilid-appendices-start>
 
+// `prefix` and `title`, the leader and the page number, linked to `loc`.
+// with a `width`, the prefix sits in a column of that width.
+// without, `sep` joins the prefix and the title.
+#let dotted-row(cfg, loc, prefix, title, width: none, sep: [ ]) = {
+  let leader = if cfg.outlines.leader == none { h(1fr) } else {
+    box(width: 1fr, inset: (x: 2pt), repeat(cfg.outlines.leader))
+  }
+  let page = context page-label(cfg, loc)
+  link(loc, if prefix == none or width == none {
+    grid(
+      columns: (1fr, auto),
+      column-gutter: 0.5em,
+      align: (left, bottom),
+      [#if prefix != none [#prefix#sep]#title #leader], page,
+    )
+  } else {
+    grid(
+      columns: (width, 1fr, auto),
+      column-gutter: 0.5em,
+      align: (left, left, bottom),
+      prefix, [#title #leader], page,
+    )
+  })
+}
 
-// "BAB II " or "Lampiran 1. " before a title in the lists.
+// "BAB II" or "Lampiran 1." before a title in the lists.
 // appendices get it when `numbering.appendix-prefix` is true.
 #let entry-prefix(cfg, sec, n) = {
   let number = h1-number(cfg, sec, n)
-  if sec == sections.main [#number ] else if (
+  if sec == sections.main { number } else if (
     sec == sections.back and cfg.numbering.appendix-prefix
-  ) [#number. ]
+  ) [#number.]
+}
+
+#let heading-prefix(cfg, h) = if h.numbering != none {
+  let loc = h.location()
+  entry-prefix(cfg, section.at(loc), counter(heading).at(loc).first())
+}
+
+// "Gambar 2.1".
+#let figure-prefix(f) = {
+  let loc = f.location()
+  let n = counter(figure.where(kind: f.kind)).at(loc).first()
+  [#f.supplement #figure-number(loc, n)]
+}
+
+#let widest(items) = calc.max(
+  0pt,
+  ..items.filter(x => x != none).map(x => measure(x).width),
+)
+
+// width of the number column in the list `name`.
+// `name` is "toc", "back" or a figure kind.
+// none puts the number in line with the title.
+#let number-width(cfg, name) = {
+  let mode = cfg.outlines.align-numbers
+  if mode == none { return none }
+  let numbered = query(heading.where(level: 1)).filter(h => (
+    h.numbering != none and h.outlined
+  ))
+  let in-back(h) = section.at(h.location()) == sections.back
+  let rows(name) = if name == "toc" {
+    numbered
+      .filter(h => cfg.outlines.toc-appendices or not in-back(h))
+      .map(h => styled(cfg.outlines.h1, heading-prefix(cfg, h)))
+  } else if name == "back" {
+    numbered.filter(in-back).map(h => heading-prefix(cfg, h))
+  } else {
+    query(figure.where(kind: name))
+      .filter(f => f.caption != none and f.at("outlined", default: true))
+      .map(figure-prefix)
+  }
+  let names = if mode == "all" { ("toc", "back", image, table, raw) } else {
+    (name,)
+  }
+  widest(names.map(rows).flatten())
 }
 
 // figure rows in every outline, user-placed ones too:
@@ -32,17 +93,14 @@
         and it.element.func() == figure
         and it.element.caption != none
     ) {
-      let loc = it.element.location()
-      context {
-        let n = counter(figure.where(kind: it.element.kind)).at(loc).first()
-        dotted-row(
-          cfg,
-          loc,
-          [#it.element.supplement #figure-number(loc, n) #h(
-              0.5em,
-            ) #it.element.caption.body],
-        )
-      }
+      context dotted-row(
+        cfg,
+        it.element.location(),
+        figure-prefix(it.element),
+        it.element.caption.body,
+        width: number-width(cfg, it.element.kind),
+        sep: [ #h(0.5em) ],
+      )
     } else {
       it
     }
@@ -50,10 +108,6 @@
 
   body
 }
-
-// mark where the appendix headings start.
-// `matter.flow` puts it after the LAMPIRAN-LAMPIRAN title.
-#let appendices-start = <jilid-appendices-start>
 
 // DAFTAR ISI.
 // with `outlines.toc-appendices: false` it lists only the LAMPIRAN title,
@@ -65,15 +119,19 @@
   })
   show outline.entry.where(level: 1): it => {
     let loc = it.element.location()
-    let numbered = it.element.numbering != none
     v(0.5em, weak: true)
     context {
-      let sec = section.at(loc)
-      let val = counter(heading).at(loc).first()
-      let appendix = numbered and sec == sections.back
-      let number = if numbered { entry-prefix(cfg, sec, val) }
+      let appendix = (
+        it.element.numbering != none and section.at(loc) == sections.back
+      )
       let title = h1-title(cfg, it.element.body, appendix: appendix)
-      styled(cfg.outlines.h1, dotted-row(cfg, loc, [#number#title]))
+      styled(cfg.outlines.h1, dotted-row(
+        cfg,
+        loc,
+        heading-prefix(cfg, it.element),
+        title,
+        width: number-width(cfg, "toc"),
+      ))
     }
   }
 
@@ -115,18 +173,13 @@
 
   pagebreak(weak: true)
   heading(level: 1, numbering: none)[#cfg.t.appendix-list]
-  show outline.entry: it => {
-    let loc = it.element.location()
-    let appendix = it.element.numbering != none
-    let number = if appendix {
-      entry-prefix(cfg, sections.back, counter(heading).at(loc).first())
-    }
-    dotted-row(cfg, loc, [#number#h1-title(
-        cfg,
-        it.element.body,
-        appendix: appendix,
-      )])
-  }
+  show outline.entry: it => context dotted-row(
+    cfg,
+    it.element.location(),
+    heading-prefix(cfg, it.element),
+    h1-title(cfg, it.element.body, appendix: it.element.numbering != none),
+    width: number-width(cfg, "back"),
+  )
   outline(title: none, target: target)
 }
 

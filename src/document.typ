@@ -18,7 +18,6 @@
 /// The README lists every key and its default value.
 ///
 /// = Example
-/// = Example
 ///
 /// ```example
 /// #show: jilid.with(

@@ -1,11 +1,11 @@
 #import "../state.typ": section, sections
 #import "../utils.typ": h1-number, h1-title
 
-// heading look per part
-// - front: centered, never numbered.
-// - main: "BAB I" above the title, centered.
-// - back: "Lampiran 1. Title", on the left.
-// each chapter should restarts the figure, table, code and equation counters.
+// The heading look in each part:
+// - Front matter: centered and never numbered.
+// - Chapters: "BAB I" above the title, centered.
+// - Appendices: "Lampiran 1. Title", on the left.
+// Each chapter restarts the figure, table, code and equation counters.
 #let heading-rules(cfg, body) = {
   let hs = cfg.headings
   set heading(numbering: cfg.numbering.heading, supplement: cfg.t.section)
@@ -30,7 +30,7 @@
         let appendix = sec == sections.back and numbered
         let title = h1-title(cfg, it.body, appendix: appendix)
 
-        // "BAB I \ TITLE", "Lampiran 1. Title", or just the title.
+        // "BAB I \ TITLE", "Lampiran 1. Title" or only the title.
         let n = h1-number(cfg, sec, counter(heading).get().first())
         let label = if not numbered {
           title
@@ -42,7 +42,7 @@
           [#n \ #title]
         }
 
-        // the first appendix should shares its page with the LAMPIRAN title.
+        // The first appendix shares its page with the LAMPIRAN title.
         let first-appendix = appendix and counter(heading).get().first() == 1
         if hs.h1.pagebreak and not first-appendix { pagebreak(weak: true) }
 
@@ -53,7 +53,7 @@
         ]
       }
     } else {
-      // level deeper than 4 reuse `h4`.
+      // Levels deeper than 4 use `h4`.
       let style = hs.at("h" + str(calc.min(it.level, 4)))
       v(style.above, weak: true)
       text(size: style.size)[

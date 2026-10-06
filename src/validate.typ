@@ -1,7 +1,7 @@
 #import "config.typ": margin-presets
 
-// turn one person or a list of them into a list.
-// `option` is the argument name shown in errors.
+// Turn one person or a list of people into a list.
+// `option` is the argument name that errors show.
 #let people(value, option) = {
   let list = if type(value) == dictionary { (value,) } else { value }
   let example = option + ": ((name: \"Nama\", id: \"1001\"),)"
@@ -37,7 +37,7 @@
     + "`, not a path string.",
 )
 
-// check the arguments outside the option groups.
+// Check the arguments outside the option groups.
 // `config.rules` checks the option groups.
 #let check-args(
   logo: none,

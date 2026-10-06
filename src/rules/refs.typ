@@ -1,11 +1,11 @@
 #import "../state.typ": page-label, section
 #import "../utils.typ": h1-number
 
-// references to headings
-// - unnumbered ("Kata Pengantar") -> "Kata Pengantar (halaman iv)"
-// - chapter -> "BAB II"
-// - appendix -> "Lampiran 1"
-// lower levels keep the Typst default ("Bagian 1.2").
+// References to headings:
+// - An unnumbered heading gives its title and page, such as "Kata Pengantar (halaman iv)".
+// - A chapter gives "BAB II".
+// - An appendix gives "Lampiran 1".
+// Lower levels keep the Typst default, such as "Bagian 1.2".
 #let ref-rules(cfg, body) = {
   show ref: it => {
     let el = it.element

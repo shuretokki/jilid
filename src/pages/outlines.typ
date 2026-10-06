@@ -2,13 +2,13 @@
 #import "../utils.typ": h1-number, h1-title, styled
 #import "../rules/figures.typ": figure-number
 
-// mark where the appendix headings start.
+// The label that marks where the appendix headings start.
 // `matter.flow` puts it after the LAMPIRAN-LAMPIRAN title.
 #let appendices-start = <jilid-appendices-start>
 
-// `prefix` and `title`, the leader and the page number, linked to `loc`.
-// with a `width`, the prefix sits in a column of that width.
-// without, `sep` joins the prefix and the title.
+// A list row: `prefix` and `title`, the leader and the page number, linked to `loc`.
+// With a `width`, the prefix goes in a column of that width.
+// Without a `width`, `sep` joins the prefix and the title.
 #let dotted-row(cfg, loc, prefix, title, width: none, sep: [ ]) = {
   let leader = if cfg.outlines.leader == none { h(1fr) } else {
     box(width: 1fr, inset: (x: 2pt), repeat(cfg.outlines.leader))
@@ -31,8 +31,8 @@
   })
 }
 
-// "BAB II" or "Lampiran 1." before a title in the lists.
-// appendices get it when `numbering.appendix-prefix` is true.
+// The number before a title in the lists, such as "BAB II" or "Lampiran 1.".
+// Appendices get it if `numbering.appendix-prefix` is true.
 #let entry-prefix(cfg, sec, n) = {
   let number = h1-number(cfg, sec, n)
   if sec == sections.main { number } else if (
@@ -45,7 +45,7 @@
   entry-prefix(cfg, section.at(loc), counter(heading).at(loc).first())
 }
 
-// "Gambar 2.1".
+// The figure number in the lists, such as "Gambar 2.1".
 #let figure-prefix(f) = {
   let loc = f.location()
   let n = counter(figure.where(kind: f.kind)).at(loc).first()
@@ -57,9 +57,9 @@
   ..items.filter(x => x != none).map(x => measure(x).width),
 )
 
-// width of the number column in the list `name`.
+// The width of the number column in the list `name`.
 // `name` is "toc", "back" or a figure kind.
-// none puts the number in line with the title.
+// none puts the number right before the title.
 #let number-width(cfg, name) = {
   let mode = cfg.outlines.align-numbers
   if mode == none { return none }
@@ -84,7 +84,7 @@
   widest(names.map(rows).flatten())
 }
 
-// figure rows in every outline, user-placed ones too:
+// Figure rows in every outline, also outlines that the user places:
 // "Gambar 2.1  Caption .... 12".
 #let figure-entry-rules(cfg, body) = {
   show outline.entry: it => {
@@ -110,10 +110,10 @@
 }
 
 // DAFTAR ISI.
-// with `outlines.toc-appendices: false` it lists only the LAMPIRAN title,
-// and DAFTAR LAMPIRAN lists the appendices.
+// If `outlines.toc-appendices` is false, it lists only the LAMPIRAN title.
+// DAFTAR LAMPIRAN then lists the appendices.
 #let table-of-contents(cfg) = {
-  // use the same leader in rows below chapter level.
+  // Use the same leader in rows below chapter level.
   set outline.entry(fill: if cfg.outlines.leader != none {
     repeat(gap: 0.15em, cfg.outlines.leader)
   })

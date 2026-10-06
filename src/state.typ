@@ -1,11 +1,11 @@
-// state for the rules, pages and footer.
+// The state that the rules, pages and footer read.
 
-// the parts of a document.
-// a typo such as `sections.mian` fails.
+// The parts of a document.
+// A typo such as `sections.mian` fails.
 #let sections = (cover: "cover", front: "front", main: "main", back: "back")
 #let section = state("jilid-section", sections.front)
 
-// text from `set-footer-text`.
+// The text from `set-footer-text`.
 // none uses `footer.left`.
 #let footer-text = state("jilid-footer-text", none)
 
@@ -20,7 +20,7 @@
   }
 }
 
-// the page number at `loc` as text, as the footer shows it.
+// The page number at `loc` as text, as the footer shows it, such as "iv".
 #let page-label(cfg, loc) = numbering(
   page-format(cfg, section.at(loc)),
   counter(page).at(loc).first(),

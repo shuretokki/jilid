@@ -2,7 +2,7 @@
 
 #import "utils.typ": filled
 
-/// One signature block, with a role, space to sign, a name and an ID.
+/// A signature block, with a role, space to sign, a name and an ID.
 ///
 /// jilid keeps the block on one page.
 /// The name is bold. If there is no ID, jilid keeps an empty line in its place, so names in a row stay level.
@@ -52,7 +52,7 @@
       name
     }))
   }
-  // without an id, keep the name in line with its neighbours.
+  // If there is no ID, keep an empty line so the name stays level with its neighbors.
   lines.push(
     if not filled(id) { hide[0] } else if filled(
       id-label,
@@ -107,7 +107,7 @@
     .chunks(columns)
     .map(row => grid(columns: (1fr,) * row.len(), align: bottom, ..row))
   if filled(header) {
-    // keep the header on the same page as the first row.
+    // Keep the header on the same page as the first row.
     let first = if rows.len() > 0 { rows.remove(0) }
     rows.insert(0, block(breakable: false, {
       set par(first-line-indent: 0pt, justify: false)

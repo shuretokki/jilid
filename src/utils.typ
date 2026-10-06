@@ -2,24 +2,24 @@
 
 #let filled(x) = x not in (none, "")
 
-// turn a string or simple content into plain text.
-// so that [TEXT] and "text" can be compared.
+// Turn a string or simple content into plain text.
+// jilid uses it to compare [TEXT] with "text".
 #let plain(it) = if type(it) == str { it } else if it.has("text") {
   it.text
 } else if it.has("children") {
   it.children.map(plain).sum(default: "")
 } else if it.has("body") { plain(it.body) } else { "" }
 
-// put the label before the value.
-// skip the label when the value already starts with it.
+// Put the label before the value.
+// If the value already starts with the label, skip the label.
 #let prefixed(label, value) = {
   let l = upper(plain(label))
   let v = upper(plain(value))
   if v == l or v.starts-with(l + " ") { value } else [#label #value]
 }
 
-// write a level-1 title in capitals when `headings.h1.uppercase` is true.
-// numbered appendix titles follow `headings.appendix.uppercase`.
+// Write a level-1 title in capitals if `headings.h1.uppercase` is true.
+// Numbered appendix titles follow `headings.appendix.uppercase` instead.
 #let h1-title(cfg, body, appendix: false) = {
   let up = if appendix { cfg.headings.appendix.uppercase } else {
     cfg.headings.h1.uppercase
@@ -27,8 +27,8 @@
   if up { upper(body) } else { body }
 }
 
-// "BAB II" for a chapter, "Lampiran 1" for an appendix.
-// `n` is the heading's number within part `sec`.
+// Give "BAB II" for a chapter or "Lampiran 1" for an appendix.
+// `n` is the number of the heading inside the part `sec`.
 #let h1-number(cfg, sec, n) = {
   let (word, style) = if sec == sections.main {
     (cfg.t.chapter, cfg.numbering.chapter)
@@ -38,8 +38,8 @@
   [#word #numbering(style, n)]
 }
 
-// write `body` in a text style.
-// the style takes any `text` argument, `upper` and `underline`.
+// Write `body` in a text style.
+// A style takes any `text` argument, plus `upper` and `underline`.
 #let styled(style, body) = {
   if body == none { return none }
   let args = style

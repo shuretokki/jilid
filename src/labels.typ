@@ -25,8 +25,8 @@
   page: (id: "halaman", en: "page"),
 )
 
-// pick every word for `lang`.
-// then put the user's words over them.
+// Pick every word for `lang`.
+// Then put the words of the user over them.
 #let resolve(overrides, lang) = {
   let out = (:)
   let missing = ()

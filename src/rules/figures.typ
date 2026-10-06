@@ -1,15 +1,15 @@
 #import "@preview/zebraw:0.6.3": zebraw
 #import "../state.typ": section, sections
 
-// the number of the `n`-th item at `loc`.
-// "2.3" in a chapter, "3" in front matter.
-// `render-appendices` numbers appendix items.
+// The number of the `n`-th item at `loc`.
+// It gives "2.3" in a chapter and "3" in the front matter.
+// `render-appendix` numbers the items in appendices.
 #let figure-number(loc, n) = {
   let chapter = counter(heading).at(loc).first()
   if section.at(loc) == sections.main [#chapter.#n] else [#n]
 }
 
-// figures, captions, equations and code blocks.
+// Rules for figures, captions, equations and code blocks.
 #let figure-rules(cfg, body) = {
   set figure(gap: cfg.typography.caption-gap, placement: none)
 

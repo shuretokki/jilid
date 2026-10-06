@@ -28,9 +28,9 @@
     #v(c.gap)
   ]
 
-  // a grid filled column by column.
-  // id-pos "right", name and id side by side.
-  // id-pos "below", id under the name in one cell.
+  // A grid that jilid fills column by column.
+  // With id-pos "right", the name and the ID sit side by side.
+  // With id-pos "below", the ID sits under the name in one cell.
   let students(cols) = if it.students.len() == 0 { none } else {
     let list = it.students
     let beside = c.student-id-pos == "right"
@@ -52,7 +52,7 @@
       styled(c.label, t.students),
       align(center, grid(
         columns: (auto,) * (if beside { 2 * cols } else { cols }),
-        // create a gaps between students name and its id.
+        // Make a gap between the name and the ID of a student.
         column-gutter: if beside {
           range(2 * cols - 1).map(g => if calc.odd(g) { 1.5em } else { 0pt })
         } else { 1em },
@@ -121,8 +121,8 @@
   layout(size => {
     let height(cols) = measure(block(width: size.width, body(cols))).height
 
-    // auto: the fewest columns up to 3 that fit,
-    // else the shortest cover.
+    // auto: use the fewest columns, up to 3, that fit.
+    // If none fit, use the shortest cover.
     let cols = c.student-columns
     if cols == auto {
       let options = (1, 2, 3)

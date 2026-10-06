@@ -5,20 +5,20 @@
     // "top" puts `kind` above the title.
     // "bottom" puts it below the title.
     kind-pos: "bottom",
-    // space between the course, lecturer and student blocks.
+    // The space between the course, lecturer and student blocks.
     gap: 0.2cm,
-    // space above the institution block.
+    // The space above the institution block.
     gap-institution: 1cm,
-    // space above and below the logo.
+    // The space above and below the logo.
     gap-logo: 0.5cm,
-    // number of student columns.
-    // auto uses the fewest columns up to 3 that fit the page.
+    // The number of student columns.
+    // auto uses the fewest columns, up to 3, that fit on the page.
     student-columns: auto,
-    // "right" puts the student id beside the name.
+    // "right" puts the student ID beside the name.
     // "below" puts it under the name.
     student-id-pos: "right",
-    // text styles of the cover texts below.
-    // each takes any `text` argument, `upper` and `underline`.
+    // The text styles of the cover texts below.
+    // Each style takes any `text` argument, plus `upper` and `underline`.
     title: (size: 18pt, weight: "bold", upper: true),
     kind: (size: 14pt, weight: "bold", upper: true),
     subtitle: (size: 18pt, weight: "bold", upper: true),
@@ -27,12 +27,12 @@
     course: (weight: "bold"),
     lecturer-name: (:),
     student-name: (:),
-    // "NIP ..." and "NIM ..." lines.
+    // The "NIP ..." and "NIM ..." lines.
     id: (:),
-    // university, faculty, department, program and year.
+    // The university, faculty, department, program and year.
     institution: (weight: "bold", upper: true),
-    // institution lines from top to bottom.
-    // leave a key out to hide its line.
+    // The institution lines, from top to bottom.
+    // If you leave a key out, jilid hides its line.
     institution-order: (
       "university",
       "faculty",
@@ -40,9 +40,9 @@
       "program",
       "year",
     ),
-    // a function that draws the institution block from its lines.
+    // A function that draws the institution block from its lines.
     institution-render: auto,
-    // a function that draws the whole cover from its data.
+    // A function that draws the whole cover from its data.
     render: auto,
   ),
   footer: (
@@ -50,22 +50,21 @@
     left: none,
     show-page-number: true,
     page-number-align: center,
-    // text style of `left`.
+    // The text style of `left`.
     text: (size: 9pt, weight: "bold"),
-    // a function that draws the footer from the page number and text.
+    // A function that draws the footer from the page number and the text.
     render: auto,
   ),
   typography: (
-    // auto uses Typst's bundled Libertinus Serif.
     font-family: auto,
     font-size: 12pt,
     caption-size: 10pt,
     caption-gap: 1em,
     table-size: 10pt,
-    // text style of web links.
+    // The text style of web links.
     // `font: auto` uses the code font.
     url: (font: auto, size: 0.85em, fill: blue.darken(20%), underline: true),
-    // a function that draws each caption from its parts.
+    // A function that draws each caption from its parts.
     caption: auto,
   ),
   paragraph: (
@@ -73,31 +72,31 @@
     indent: 0.63cm,
     leading: 0.575em,
     spacing: 1.15em,
-    // space before numbered and bullet markers.
+    // The space before numbered and bullet markers.
     list-indent: 0cm,
-    // width of the marker column.
-    // list text starts after it.
+    // The width of the marker column.
+    // The list text starts after it.
     marker-width: 0.75cm,
   ),
   numbering: (
-    // page number style before the first chapter.
+    // The page number style before the first chapter, such as "i".
     front: "i",
     // "body" continues the chapter page numbers in the appendices.
     // "front" continues the front matter page numbers.
     back: "body",
     // "bottom" puts page numbers in the footer.
-    // "top" puts chapter and appendix page numbers at the top right,
-    // except on pages that open a chapter.
+    // "top" puts chapter and appendix page numbers at the top right.
+    // A page that opens a chapter keeps its number at the bottom.
     position: "bottom",
-    // chapter number style.
-    // "I" gives BAB I, "1" gives BAB 1.
+    // The chapter number style.
+    // "I" gives BAB I, and "1" gives BAB 1.
     chapter: "I",
-    // appendix number style.
-    // "1" gives Lampiran 1, "A" gives Lampiran A.
+    // The appendix number style.
+    // "1" gives Lampiran 1, and "A" gives Lampiran A.
     appendix: "1",
-    // section number style inside a chapter.
+    // The section number style inside a chapter, such as "1.1.".
     heading: "1.1.",
-    // put "Lampiran 1." before each appendix title.
+    // Put "Lampiran 1." before each appendix title.
     appendix-prefix: true,
   ),
   outlines: (
@@ -106,23 +105,23 @@
     figures: true,
     tables: true,
     codes: true,
-    // show DAFTAR LAMPIRAN when there are appendices.
+    // Show DAFTAR LAMPIRAN if the document has appendices.
     appendices: true,
-    // list each appendix in DAFTAR ISI too.
-    // false lists only the LAMPIRAN title.
+    // List each appendix in DAFTAR ISI too.
+    // If false, DAFTAR ISI lists only the LAMPIRAN title.
     toc-appendices: false,
-    // text style of chapter rows in DAFTAR ISI.
+    // The text style of chapter rows in DAFTAR ISI.
     h1: (weight: "bold"),
-    // text repeated between an entry and its page number.
+    // The text between an entry and its page number, repeated to fill the line.
     // none removes it.
     leader: ".",
     // "list" starts every title in a list at the same place.
-    // "all" does it with one place for every list.
+    // "all" uses one place for every list.
     // none puts each title right after its number.
     align-numbers: "list",
   ),
   headings: (
-    // affects chapter and front-matter titles.
+    // Chapter titles and front matter titles.
     h1: (
       size: 12pt,
       above: 24pt,
@@ -133,8 +132,8 @@
     h2: (size: 12pt, above: 24pt, below: 18pt, indent: 0cm),
     h3: (size: 12pt, above: 14pt, below: 18pt, indent: 0cm),
     h4: (size: 12pt, above: 12pt, below: 18pt, indent: 0cm),
-    // numbered appendix titles, on their page and in the lists.
-    // 'LAMPIRAN-LAMPIRAN' follows `h1`.
+    // Numbered appendix titles, on their page and in the lists.
+    // The LAMPIRAN-LAMPIRAN title follows `h1`.
     appendix: (uppercase: false),
   ),
   code: (
@@ -145,7 +144,8 @@
   ),
 )
 
-// fail on any value not listed below.
+// Accept only the values in the list.
+// Any other value fails.
 #let one-of(..values) = (
   check: v => v in values.pos(),
   message: "must be one of " + values.pos().map(repr).join(", "),
@@ -155,7 +155,7 @@
   message: "must be auto or a function, e.g. `it => [...]`",
 )
 
-// the values each option accepts.
+// The values that each option accepts.
 #let rules = (
   "cover.kind-pos": one-of("top", "bottom"),
   "cover.student-id-pos": one-of("right", "below"),
@@ -185,8 +185,8 @@
   ),
 )
 
-// options that take any `text` argument, `upper` and `underline`.
-// their keys are not checked, and a user key replaces only that key.
+// Options that take any `text` argument, plus `upper` and `underline`.
+// jilid does not check their keys, and a user key replaces only that key.
 #let text-styles = (
   "cover.title",
   "cover.kind",
@@ -203,14 +203,14 @@
   "outlines.h1",
 )
 
-// margins for `margin: "print"` and `margin: "digital"`.
+// The margins for `margin: "print"` and `margin: "digital"`.
 #let margin-presets = (
   print: (top: 3cm, bottom: 3cm, left: 4cm, right: 3cm),
   digital: 1in,
 )
 
-// put the user's options over the defaults, in nested groups too.
-// `path` is the option name shown in errors.
+// Put the options of the user over the defaults, in nested groups too.
+// `path` is the option name that errors show.
 #let merge(base, user, path: "") = {
   let out = base
   for (key, value) in user {

@@ -2,7 +2,7 @@
 #import "rules/text.typ": para-rules
 #import "pages/outlines.typ": figure-entry-rules, outlines
 
-// fail on a level-1 heading written with `=` in `fn`.
+// Fail on a level-1 heading that is written with `=` in `fn`.
 #let check-body(body, fn) = {
   let children = if body.has("children") { body.children } else { (body,) }
   for c in children {
@@ -22,7 +22,7 @@
   }
 }
 
-// fail on an argument removed in 0.2.
+// Fail on an argument that jilid 0.2 removed.
 #let check-removed(args, fn) = {
   let named = args.named().keys()
   if named.len() > 0 {
@@ -91,7 +91,7 @@
   )) <jilid-matter>]
 }
 
-/// One appendix, such as Lampiran 1.
+/// An appendix page, such as Lampiran 1.
 ///
 /// jilid puts every appendix after the bibliography, in the order you write them.
 /// You can write them anywhere in the file.
@@ -135,7 +135,7 @@
   )) <jilid-matter>]
 }
 
-// renamed to `appendix` in 0.2.
+// jilid 0.2 renamed this function to `appendix`.
 #let appendices(..args) = panic(
   "jilid: `appendices` is `appendix(title: [..])[..]` since 0.2, one call per appendix. See \"Migrating from 0.1\" in the README.",
 )
@@ -154,7 +154,7 @@
   para-rules(cfg, title + body)
 }
 
-// number figures, tables and equations as "L1.2".
+// Number figures, tables and equations with the appendix number, such as "L1.2".
 #let render-appendix(cfg, m, n) = {
   let v = m.value
   let title = heading(level: 1, if v.title == none [] else { v.title })
@@ -168,8 +168,8 @@
   para-rules(cfg, if v.label != none [#title#v.label#body] else [#title#body])
 }
 
-// everything after the cover
-// front matter > outlines > `body` > appendices.
+// Everything after the cover, in this order:
+// the front matter, the lists, `body` and the appendices.
 #let flow(cfg, body) = {
   section.update(sections.front)
   counter(page).update(1)
@@ -215,8 +215,9 @@
     }
   }
 
-  // save the start page of each part.
-  // read it with `typst eval 'query(<jilid-pages>)' --in doc.typ`.
+  // Save the first page of each part: the front matter, the chapters and the appendices.
+  // For each part, jilid saves the page number as a whole number and as the footer shows it, such as 4 and "iv".
+  // To read the result, run `typst eval 'query(<jilid-pages>)' --in doc.typ`.
   context {
     let start(lbl) = {
       let q = query(lbl)

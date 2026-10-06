@@ -1,6 +1,6 @@
 #import "../utils.typ": styled
 
-// font, language, links, table cells.
+// Rules for the font, the language, links and table cells.
 #let text-rules(cfg, body) = {
   let font = cfg.typography.font-family
   set text(
@@ -32,8 +32,8 @@
   body
 }
 
-// paragraph and list layout.
-// front matter and appendices should also get it.
+// Rules for the paragraph and list layout.
+// The front matter and the appendices get them too.
 #let para-rules(cfg, body) = {
   let p = cfg.paragraph
   set par(

@@ -1,8 +1,8 @@
 #import "../state.typ": footer-text, page-format, section, sections
 #import "../utils.typ": styled
 
-// with `numbering.position: "top"`, chapter and appendix pages show the number top right.
-// a page that opens a chapter keeps it at the bottom.
+// If `numbering.position` is "top", chapter and appendix pages show the number at the top right.
+// A page that opens a chapter keeps it at the bottom.
 #let number-on-top(cfg, sec) = (
   cfg.numbering.position == "top"
     and sec in (sections.main, sections.back)
@@ -16,7 +16,7 @@
   counter(page).get().first(),
 ))
 
-// show the top-right page number when `number-on-top` allows it.
+// Show the page number at the top right if `number-on-top` allows it.
 #let page-header(cfg) = context {
   let sec = section.get()
   if cfg.footer.show-page-number and number-on-top(cfg, sec) {
@@ -24,8 +24,8 @@
   }
 }
 
-// the built-in footer, drawn from the same data a `footer.render` hook gets:
-// the text above the page number.
+// The built-in footer: the text above the page number.
+// It gets the same data as a `footer.render` hook.
 #let default-footer(f, it) = [
   #if it.left != none [
     #align(left, styled(f.text, it.left))

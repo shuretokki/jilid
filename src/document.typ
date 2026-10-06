@@ -173,7 +173,7 @@
       )
   )
 
-  // turn names into plain text for the PDF metadata.
+  // Turn the student names into plain text for the PDF metadata.
   set document(title: title, author: students.map(s => plain(s.name)))
 
   set page(numbering: none)

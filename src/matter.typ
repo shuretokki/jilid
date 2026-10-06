@@ -46,19 +46,28 @@
 ///
 /// = Example
 ///
-/// ```example
+/// ```
 /// #frontmatter(title: [Kata Pengantar])[
 ///   Puji syukur ...
 /// ]
 /// ```
 ///
+/// ```
+/// #frontmatter(title: [Abstrak], label: <abstrak>)[
+///   Abstrak ...
+/// ]
+/// ```
+///
 /// - title (content, str, none): The page title. jilid shows it like a chapter title, centered and without a number.
+/// - label (label, none): A label that you can refer to with `@`, such as `<abstrak>`. jilid shows the reference as the title and its page, such as "Abstrak (halaman ii)". It needs a `title`.
 /// - removed (arguments): Arguments that jilid 0.2 removed: `numbering`, `start-page` and `outlined`. If you give one of them, jilid stops with an error that tells you what changed.
 /// - body (content): The text of the page.
 /// -> content
 #let frontmatter(
   /// The page title. jilid shows it like a chapter title, centered and without a number.
   title: none,
+  /// A label that you can refer to with `@`, such as `<abstrak>`. It needs a `title`.
+  label: none,
   /// Arguments that jilid 0.2 removed. If you give one, jilid stops with an error.
   ..removed,
   /// The text of the page.
@@ -66,7 +75,20 @@
 ) = {
   check-removed(removed, "frontmatter")
   check-body(body, "frontmatter")
-  [#metadata((kind: sections.front, title: title, body: body)) <jilid-matter>]
+  assert(
+    label == none or type(label) == std.label,
+    message: "jilid: `frontmatter(label: ..)` must be a label, e.g. `label: <abstrak>`.",
+  )
+  assert(
+    label == none or title != none,
+    message: "jilid: `frontmatter(label: ..)` needs a `title`.",
+  )
+  [#metadata((
+    kind: sections.front,
+    title: title,
+    label: label,
+    body: body,
+  )) <jilid-matter>]
 }
 
 /// One appendix, such as Lampiran 1.
@@ -123,6 +145,7 @@
 #let render-frontmatter(cfg, m) = {
   let v = m.value
   let title = if v.title != none { heading(level: 1, numbering: none, v.title) }
+  if v.label != none { title = [#title#v.label] }
   let body = {
     set figure(outlined: false)
     set heading(numbering: none)

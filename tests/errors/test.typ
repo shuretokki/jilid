@@ -58,6 +58,14 @@
 )
 #let msg = catch(() => appendix(label: "data")[])
 #assert(msg != none and msg.contains("`appendix(label: ..)` must be a label"))
+#let msg = catch(() => frontmatter(label: <x>)[x])
+#assert(
+  msg != none and msg.contains("`frontmatter(label: ..)` needs a `title`"),
+)
+#let msg = catch(() => frontmatter(title: [X], label: "x")[x])
+#assert(
+  msg != none and msg.contains("`frontmatter(label: ..)` must be a label"),
+)
 #let msg = catch(() => appendices[x])
 #assert(
   msg != none and msg.contains("`appendices` is `appendix(title: [..])[..]`"),

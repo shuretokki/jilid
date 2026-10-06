@@ -55,7 +55,7 @@
   )
 ]
 
-#frontmatter(title: [Kata Pengantar])[
+#frontmatter(title: [Kata Pengantar], label: <kata-pengantar>)[
   #lorem(40)
 ]
 
@@ -86,7 +86,7 @@ Lihat @fig-a, @tab-a, dan @eq-a.
 
 = Tinjauan Pustaka
 
-Seperti dijelaskan pada @bab-1.
+Seperti dijelaskan pada @bab-1 dan @kata-pengantar.
 
 #heading(level: 2, numbering: none)[Subbab Tanpa Nomor]
 

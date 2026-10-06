@@ -530,8 +530,8 @@ the error message lists the missing ones.
 
 ## Functions
 
-- `frontmatter(title: none)[..]`\
-  description: Front matter pages. The title is styled like a chapter title. Use `==` for headings inside.
+- `frontmatter(title: none, label: none)[..]`\
+  description: Front matter pages. The title is styled like a chapter title. Use `==` for headings inside. `label` lets you refer to the page, e.g. `label: <abstrak>` and `@abstrak` gives "Abstrak (halaman ii)".
 
 - `appendix(title: none, label: none)[..]`\
   description: One appendix, numbered by call order: "Lampiran 1. Title", ... `label` lets you refer to it, e.g. `label: <kuesioner>` and `@kuesioner`.

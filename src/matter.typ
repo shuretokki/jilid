@@ -22,8 +22,8 @@
   }
 }
 
-// front matter can be written anywhere.
-// it renders before the table of contents, in writing order.
+// a front matter page such as Kata Pengantar or Abstrak.
+// it renders before the table of contents, wherever you write it.
 #let frontmatter(
   // styled like a chapter title, centered and unnumbered.
   title: none,
@@ -33,8 +33,8 @@
   [#metadata((kind: sections.front, title: title, body: body)) <jilid-matter>]
 }
 
-// appendices render after the bibliography, wherever you write them.
-// each call is one appendix: "Lampiran 1. Title", "Lampiran 2. Title", ...
+// one appendix, numbered by call order: "Lampiran 1. Title".
+// it renders after the bibliography, wherever you write it.
 #let appendix(
   title: none,
   // a label to refer to the appendix, e.g. `<kuesioner>`.

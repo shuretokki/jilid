@@ -10,6 +10,7 @@
 #import "matter.typ": flow
 #import "utils.typ": plain
 
+/// format a report, proposal or thesis for an Indonesian university.
 /// use it as `#show: jilid.with(..)`.
 /// option groups take only the keys you change, see `src/config.typ`.
 #let jilid(

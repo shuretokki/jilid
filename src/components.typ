@@ -2,6 +2,7 @@
 
 #import "utils.typ": filled
 
+// one signature with a role, space to sign, name and id.
 #let signature(
   role: none,
   name: none,
@@ -30,7 +31,8 @@
   lines.join(linebreak())
 })
 
-/// signatures under a full-width `header`, `columns` per row.
+/// signatures in rows under a full-width `header`.
+/// `columns` signatures per row.
 /// names in a row line up.
 /// a shorter last row sits in the center.
 #let signatures(header: none, columns: 2, gutter: 1cm, ..items) = {

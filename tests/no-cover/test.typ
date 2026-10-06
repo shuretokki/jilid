@@ -1,5 +1,5 @@
 // no cover, no TOC, no figures, footer text changed mid-document,
-// frontmatter with custom start page.
+// untitled frontmatter.
 #import "/lib.typ": *
 #show: jilid.with(
   title: "Tanpa Sampul",
@@ -22,11 +22,7 @@
   ),
 )
 
-#frontmatter(
-  title: "Ringkasan",
-  start-page: 3,
-  outlined: false,
-)[
+#frontmatter[
   #lorem(20)
 ]
 

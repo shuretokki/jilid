@@ -1,6 +1,5 @@
 #import "@preview/jilid:0.1.0": (
-  appendices, frontmatter, jilid, set-footer-text, signature, signatures,
-  zebraw,
+  appendix, frontmatter, jilid, set-footer-text, signature, signatures, zebraw,
 )
 
 #show: jilid.with(
@@ -164,9 +163,7 @@ Seperti dirumuskan pada @bab-pendahuluan, #lorem(40) Hasil uji ada pada
 
 #lorem(40)
 
-#appendices[
-  = Hasil Pengujian <lampiran-uji>
-
+#appendix(title: [Hasil Pengujian], label: <lampiran-uji>)[
   #figure(
     table(
       columns: 3,
@@ -176,9 +173,9 @@ Seperti dirumuskan pada @bab-pendahuluan, #lorem(40) Hasil uji ada pada
     ),
     caption: [Hasil uji fungsional],
   )
+]
 
-  = Dokumentasi Kegiatan
-
+#appendix(title: [Dokumentasi Kegiatan])[
   #figure(
     rect(width: 6cm, height: 3cm, fill: luma(230)),
     caption: [Rapat kelompok],

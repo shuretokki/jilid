@@ -12,6 +12,4 @@
 
 = Penutup
 
-#appendices[
-  = Dokumentasi
-]
+#appendix(title: [Dokumentasi])[]

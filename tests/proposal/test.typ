@@ -110,11 +110,11 @@ Seperti dijelaskan pada @bab-1.
 
 #lorem(30) @lamport1994latex.
 
-#appendices[
-  = Lampiran Satu <lamp-1>
+#appendix(title: [Lampiran Satu], label: <lamp-1>)[
   #figure(rect(width: 3cm, height: 1cm), caption: [Gambar lampiran])
   #lorem(20)
+]
 
-  = Lampiran Dua
+#appendix(title: [Lampiran Dua])[
   Lihat @lamp-1.
 ]

@@ -1,6 +1,4 @@
-#import "../state.typ": (
-  footer-text, front-override, page-format, section, sections,
-)
+#import "../state.typ": footer-text, page-format, section, sections
 #import "../utils.typ": styled
 
 // with `numbering.position: "top"`, chapter and appendix pages show the number top right.
@@ -14,7 +12,7 @@
 )
 
 #let page-number(cfg, sec) = text(size: cfg.typography.font-size, numbering(
-  page-format(cfg, sec, override: front-override.get()),
+  page-format(cfg, sec),
   counter(page).get().first(),
 ))
 

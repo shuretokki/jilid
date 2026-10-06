@@ -23,7 +23,7 @@ The template initializes your project with a sample call to the `jilid`
 function in a show rule. If you want to change an existing project to use this template, add a show rule like this at the top of your file:
 
 ```typ
-#import "@preview/jilid:0.1.0": jilid, frontmatter, appendices
+#import "@preview/jilid:0.1.0": jilid, frontmatter, appendix
 
 #show: jilid.with(
   title: [Judul Dokumen],
@@ -48,10 +48,7 @@ function in a show rule. If you want to change an existing project to use this t
 = Pendahuluan
 ...
 
-#appendices[
-  = Dokumentasi Kegiatan
-  ...
-]
+#appendix(title: [Dokumentasi Kegiatan])[ ... ]
 ```
 
 ## Fonts
@@ -79,9 +76,9 @@ jilid displays your document in this order:
 2. Front matter, from `#frontmatter(title: [..])[..]`
 3. Daftar Isi, then Daftar Tabel, Gambar, Kode and Lampiran when the
    document has any
-4. Chapters, from `= Heading`",
+4. Chapters, from `= Heading`
 5. Bibliography, from the `bibliography` option
-6. Appendices, from `#appendices[= Heading ..]`
+6. Appendices, from `#appendix(title: [..])[..]`
 
 ## Configuration
 
@@ -514,11 +511,11 @@ the error message lists the missing ones.
 
 ## Functions
 
-- `frontmatter(title: none, numbering: auto, start-page: auto, outlined: true)[..]`\
-  description: Front matter pages. The title is styled like a chapter title. `numbering` changes the page number style for these pages only, e.g. `"I"`.
+- `frontmatter(title: none)[..]`\
+  description: Front matter pages. The title is styled like a chapter title. Use `==` for headings inside.
 
-- `appendices[..]`\
-  description: Appendices. Level-1 headings inside become "Lampiran 1", ...
+- `appendix(title: none, label: none)[..]`\
+  description: One appendix, numbered by call order: "Lampiran 1. Title", ... `label` lets you refer to it, e.g. `label: <kuesioner>` and `@kuesioner`.
 
 - `signature(role: none, name: none, id: none, id-label: "NIP", space: 2cm, underline-name: false, alignment: center)`\
   description: One signature with role, space to sign, bold name and id. Never split across pages.
@@ -531,6 +528,12 @@ the error message lists the missing ones.
 
 - `zebraw`\
   description: Re-exported from the zebraw package, for highlighted lines and comments.
+
+## Migrating from 0.1
+
+- `appendices[= A ... = B ...]` becomes one `appendix(title: [A])[..]` per appendix.
+- `frontmatter[= Title ..]` becomes `frontmatter(title: [Title])[..]`.
+- `frontmatter` no longer takes `numbering`, `start-page` or `outlined`.
 
 ## Contributing
 

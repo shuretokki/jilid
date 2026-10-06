@@ -44,8 +44,7 @@ lihat @f-main dan @e-main.
 
 #figure(rect(width: 2cm, height: 1cm), caption: [gambar dua])
 
-#appendices[
-  = Pertama
+#appendix(title: [Pertama])[
   #figure(rect(width: 2cm, height: 1cm), caption: [gambar lampiran satu]) <f-l1>
   #figure(
     table(
@@ -55,8 +54,9 @@ lihat @f-main dan @e-main.
     caption: [tabel lampiran satu],
   )
   $ e = f $ <e-l1>
+]
 
-  = Kedua
+#appendix(title: [Kedua])[
   #figure(rect(width: 2cm, height: 1cm), caption: [gambar lampiran dua]) <f-l2>
   #figure(
     ```py

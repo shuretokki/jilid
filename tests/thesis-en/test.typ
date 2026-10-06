@@ -44,7 +44,7 @@
   margin: "digital",
 )
 
-#frontmatter(title: [Abstract], numbering: "I")[
+#frontmatter(title: [Abstract])[
   #lorem(40)
   $ e^(i pi) + 1 = 0 $
 ]
@@ -71,8 +71,7 @@ fn main() {
 
 #lorem(30)
 
-#appendices[
-  = First Appendix
+#appendix(title: [First Appendix])[
   #figure(rect(width: 2cm, height: 1cm), caption: [Appendix figure]) <app-fig>
   $ a^2 + b^2 = c^2 $
   See @app-fig.

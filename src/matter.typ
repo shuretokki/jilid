@@ -1,81 +1,86 @@
-#import "state.typ": front-override, page-label, section, sections
+#import "state.typ": page-label, section, sections
 #import "rules/text.typ": para-rules
 #import "pages/outlines.typ": figure-entry-rules, outlines
+
+// fail on a level-1 heading written with `=` in `fn`.
+#let no-h1(fn) = it => panic(
+  "jilid: use `title:` instead of `=` in `"
+    + fn
+    + "`, e.g. `#"
+    + fn
+    + "(title: [Judul])[..]`.",
+)
+
+#let check-body(body, fn) = {
+  let children = if body.has("children") { body.children } else { (body,) }
+  for c in children {
+    if (
+      c.func() == heading
+        and c.at("level", default: auto) in (auto, 1)
+        and c.at("depth", default: 1) == 1
+    ) { no-h1(fn)(c) }
+  }
+}
 
 // front matter can be written anywhere.
 // it renders before the table of contents, in writing order.
 #let frontmatter(
   // styled like a chapter title, centered and unnumbered.
   title: none,
-  outlined: true,
-  // page number style for these pages, e.g. "I".
-  // auto uses `numbering.front`.
-  numbering: auto,
-  // start the page numbers at this number.
-  start-page: auto,
   body,
-) = [#metadata((
-  kind: sections.front,
-  numbering: numbering,
-  body: {
-    if start-page != auto {
-      counter(page).update(start-page)
-    }
-    if title != none {
-      heading(level: 1, numbering: none, outlined: outlined, title)
-    }
-    set figure(outlined: false)
-    set heading(numbering: none)
-    body
-  },
-)) <jilid-matter>]
+) = {
+  check-body(body, "frontmatter")
+  [#metadata((kind: sections.front, title: title, body: body)) <jilid-matter>]
+}
 
 // appendices render after the bibliography, wherever you write them.
-// level-1 headings inside become "Lampiran 1.", "Lampiran 2.", ...
-#let appendices(body) = [#metadata((
-  kind: sections.back,
-  body: body,
-)) <jilid-matter>]
+// each call is one appendix: "Lampiran 1. Title", "Lampiran 2. Title", ...
+#let appendix(
+  title: none,
+  // a label to refer to the appendix, e.g. `<kuesioner>`.
+  label: none,
+  body,
+) = {
+  assert(
+    label == none or type(label) == std.label,
+    message: "jilid: `appendix(label: ..)` must be a label, e.g. `label: <kuesioner>`.",
+  )
+  check-body(body, "appendix")
+  [#metadata((
+    kind: sections.back,
+    title: title,
+    label: label,
+    body: body,
+  )) <jilid-matter>]
+}
 
 #let blocks-of(kind) = query(<jilid-matter>).filter(m => m.value.kind == kind)
 
-// check for a numbered level-1 heading in an `appendices` body.
-#let is-appendix-heading(c) = (
-  c.func() == heading
-    and c.at("level", default: auto) in (auto, 1)
-    and c.at("depth", default: 1) == 1
-    and c.at("numbering", default: auto) != none
-)
+#let render-frontmatter(cfg, m) = {
+  let v = m.value
+  let title = if v.title != none { heading(level: 1, numbering: none, v.title) }
+  let body = {
+    set figure(outlined: false)
+    set heading(numbering: none)
+    show heading.where(level: 1): no-h1("frontmatter")
+    v.body
+  }
+  para-rules(cfg, title + body)
+}
 
 // number figures, tables and equations as "L1.2".
-// count the appendix headings to get the appendix number.
-#let render-appendices(cfg, blocks) = {
-  let count = 0
-  for m in blocks {
-    let body = m.value.body
-    let children = if body.has("children") { body.children } else {
-      (body,)
-    }
-    // split the body at appendix headings.
-    // group 0 holds the content before the first one.
-    let groups = ((n: count, items: ()),)
-    for c in children {
-      if is-appendix-heading(c) {
-        count += 1
-        groups.push((n: count, items: ()))
-      }
-      groups.at(-1).items.push(c)
-    }
-    for g in groups.filter(g => g.items.len() > 0) {
-      let prefix = if (
-        g.n > 0
-      ) [#cfg.t.appendix-short#numbering(cfg.numbering.appendix, g.n).]
-      set figure(outlined: false, numbering: x => [#prefix#x])
-      set math.equation(numbering: x => [(#prefix#x)])
-      para-rules(cfg, g.items.join())
-    }
-    pagebreak(weak: true)
+#let render-appendix(cfg, m, n) = {
+  let v = m.value
+  let title = heading(level: 1, if v.title == none [] else { v.title })
+  let prefix = [#cfg.t.appendix-short#numbering(cfg.numbering.appendix, n).]
+  let body = {
+    set figure(outlined: false, numbering: x => [#prefix#x])
+    set math.equation(numbering: x => [(#prefix#x)])
+    set heading(numbering: none)
+    show heading.where(level: 1): no-h1("appendix")
+    v.body
   }
+  para-rules(cfg, if v.label != none [#title#v.label#body] else [#title#body])
 }
 
 // everything after the cover
@@ -89,13 +94,10 @@
   [#metadata(none) <jilid-section-front>]
   context {
     for m in blocks-of(sections.front) {
-      front-override.update(m.value.numbering)
-      para-rules(cfg, m.value.body)
+      render-frontmatter(cfg, m)
       pagebreak(weak: true)
     }
   }
-  // a frontmatter numbering applies to its own pages only.
-  front-override.update(auto)
 
   outlines(cfg)
 
@@ -124,7 +126,7 @@
       [#metadata(none) <jilid-appendices-start>]
       counter(heading).update(0)
 
-      render-appendices(cfg, back)
+      for (i, m) in back.enumerate() { render-appendix(cfg, m, i + 1) }
     }
   }
 

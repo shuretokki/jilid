@@ -1,5 +1,5 @@
 #import "@preview/jilid:0.1.0": (
-  appendices, frontmatter, jilid, signature, signatures,
+  appendix, frontmatter, jilid, signature, signatures,
 )
 
 #show: jilid.with(
@@ -84,16 +84,10 @@ Contoh sitasi @einstein1905 dan rujukan ke @bab-pendahuluan.
 #lorem(80)
 
 // Appendices are placed after the bibliography.
-#appendices[
-  = Dokumentasi Kegiatan
-
+#appendix(title: [Dokumentasi Kegiatan])[
   #lorem(30)
 ]
 
-
-#appendices[
-  = Dokumentasi Kegiatan 2
-
-
+#appendix(title: [Dokumentasi Kegiatan 2])[
   #lorem(20)
 ]

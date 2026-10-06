@@ -1,7 +1,7 @@
 // > Compile-only.
 // bad options fail with a `jilid:` message naming the problem
 // valid partial options compile.
-#import "/lib.typ": jilid, signatures
+#import "/lib.typ": appendix, frontmatter, jilid, signatures
 
 #let fails-with(needle, ..args) = {
   let msg = catch(() => jilid(..args, []))
@@ -39,6 +39,16 @@
   msg != none and msg.contains("unknown argument(s) for `signatures`: `headr`"),
 )
 #fails-with("`labels.toc` takes the text itself", labels: (toc: (id: [ISI])))
+#let msg = catch(() => frontmatter[= Kata Pengantar])
+#assert(
+  msg != none and msg.contains("use `title:` instead of `=` in `frontmatter`"),
+)
+#let msg = catch(() => appendix[= Data])
+#assert(
+  msg != none and msg.contains("use `title:` instead of `=` in `appendix`"),
+)
+#let msg = catch(() => appendix(label: "data")[])
+#assert(msg != none and msg.contains("`appendix(label: ..)` must be a label"))
 
 
 // Valid partial options must not panic.

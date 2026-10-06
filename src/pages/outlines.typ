@@ -115,6 +115,29 @@
 // If `outlines.toc-appendices` is false, it lists only the LAMPIRAN title.
 // DAFTAR LAMPIRAN then lists the appendices.
 #let table-of-contents(cfg) = {
+  // The headings that DAFTAR ISI lists.
+  let target() = {
+    let has-appendices = query(appendices-start).len() > 0
+    if has-appendices and not cfg.outlines.toc-appendices {
+      selector(heading).before(appendices-start)
+    } else { heading }
+  }
+  // The widest number at each heading level in DAFTAR ISI, such as "BAB VIII" and "1.10.".
+  let level-widths() = {
+    let hs = query(target()).filter(h => (
+      h.outlined and h.numbering != none and h.level <= cfg.outlines.depth
+    ))
+    range(1, cfg.outlines.depth + 1).map(level => widest(
+      hs
+        .filter(h => h.level == level)
+        .map(h => if level == 1 {
+          styled(cfg.outlines.h1, heading-prefix(cfg, h))
+        } else {
+          numbering(h.numbering, ..counter(heading).at(h.location()))
+        }),
+    ))
+  }
+
   // Use the same leader in rows below chapter level.
   set outline.entry(fill: if cfg.outlines.leader != none {
     repeat(gap: 0.15em, cfg.outlines.leader)
@@ -136,20 +159,37 @@
       ))
     }
   }
+  // With `outlines.indent: "title"`, a row below chapter level starts under the title of the level above.
+  show outline.entry: it => {
+    if it.level < 2 or cfg.outlines.indent != "title" { return it }
+    context {
+      let widths = level-widths()
+      let x = widths
+        .slice(0, it.level - 1)
+        .map(w => if w > 0pt { w + 0.5em } else { 0pt })
+        .sum()
+      pad(left: x, dotted-row(
+        cfg,
+        it.element.location(),
+        it.prefix(),
+        it.element.body,
+        width: if cfg.outlines.align-numbers != none {
+          widths.at(it.level - 1)
+        },
+      ))
+    }
+  }
 
   if cfg.outlines.toc {
     heading(level: 1, numbering: none)[#cfg.t.toc]
-    context {
-      let has-appendices = query(appendices-start).len() > 0
-      outline(
-        title: none,
-        indent: auto,
-        depth: cfg.outlines.depth,
-        target: if has-appendices and not cfg.outlines.toc-appendices {
-          selector(heading).before(appendices-start)
-        } else { heading },
-      )
-    }
+    context outline(
+      title: none,
+      indent: if cfg.outlines.indent == "title" { auto } else {
+        cfg.outlines.indent
+      },
+      depth: cfg.outlines.depth,
+      target: target(),
+    )
   }
 }
 

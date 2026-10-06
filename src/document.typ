@@ -38,7 +38,7 @@
 /// / typography: `font-family`, `font-size`, `caption-size`, `caption-gap`, `table-size`, `url`, `caption`
 /// / paragraph: `justify`, `indent`, `leading`, `spacing`, `list-indent`, `marker-width`
 /// / numbering: `front`, `back`, `position`, `chapter`, `appendix`, `heading`, `appendix-prefix`
-/// / outlines: `depth`, `toc`, `figures`, `tables`, `codes`, `appendices`, `toc-appendices`, `h1`, `leader`, `align-numbers`
+/// / outlines: `depth`, `toc`, `figures`, `tables`, `codes`, `appendices`, `toc-appendices`, `h1`, `leader`, `align-numbers`, `indent`
 /// / headings: `h1`, `h2`, `h3`, `h4`, `appendix`
 /// / code: `fill`, `font`, `size`, `zebraw`
 ///

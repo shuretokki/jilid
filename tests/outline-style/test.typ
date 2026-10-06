@@ -1,7 +1,13 @@
-// outline styling: regular chapter rows, no leader, one number column for all lists.
+// outline styling: regular chapter rows, no leader, one number column for all lists,
+// every DAFTAR ISI row at the left.
 #import "/lib.typ": *
 #show: jilid.with(
-  outlines: (h1: (weight: "regular"), leader: none, align-numbers: "all"),
+  outlines: (
+    h1: (weight: "regular"),
+    leader: none,
+    align-numbers: "all",
+    indent: 0cm,
+  ),
 )
 
 = Pendahuluan

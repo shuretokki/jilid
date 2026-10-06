@@ -120,6 +120,11 @@
     // DAFTAR ISI always uses its own place.
     // none puts each title right after its number.
     align-numbers: "list",
+    // Where a row below chapter level starts in DAFTAR ISI.
+    // "title" starts it under the title of the level above.
+    // auto uses the Typst default.
+    // A length, such as 1cm, moves each level by that length. 0cm puts every row at the left.
+    indent: "title",
   ),
   headings: (
     // Chapter titles and front matter titles.
@@ -180,6 +185,10 @@
   "numbering.back": one-of("body", "front"),
   "numbering.position": one-of("bottom", "top"),
   "outlines.align-numbers": one-of("list", "all", none),
+  "outlines.indent": (
+    check: v => v in ("title", auto) or type(v) in (length, relative),
+    message: "must be \"title\", auto or a length, e.g. `1cm`",
+  ),
   "code.zebraw": (
     check: v => type(v) in (bool, dictionary),
     message: "must be true, false, or a dictionary of zebraw options, e.g. `(lang: false)`",

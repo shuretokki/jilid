@@ -31,6 +31,9 @@
 #fails-with("`students` must be a list", students: "Budi")
 #fails-with("unknown option `footer.mode`", footer: (mode: "grid"))
 #fails-with("`numbering.back` must be one of", numbering: (back: "Body"))
+#fails-with("`outlines.indent` must be \"title\", auto or a length", outlines: (
+  indent: "left",
+))
 #fails-with("`outlines.align-numbers` must be one of", outlines: (
   align-numbers: "page",
 ))

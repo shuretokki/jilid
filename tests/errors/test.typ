@@ -34,6 +34,12 @@
 #fails-with("`cover.kind-pos` must be one of", cover: (kind-pos: "above"))
 #fails-with("unknown option `cover.formal`", cover: (formal: true))
 #fails-with("`cover.title` expects a dictionary", cover: (title: 20pt))
+#fails-with("`cover.institution-order` must be a list", cover: (
+  institution-order: ("univ",),
+))
+#fails-with("`cover.institution-render` must be auto or a function", cover: (
+  institution-render: [x],
+))
 #let msg = catch(() => signatures(headr: [x]))
 #assert(
   msg != none and msg.contains("unknown argument(s) for `signatures`: `headr`"),

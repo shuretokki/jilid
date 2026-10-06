@@ -31,6 +31,17 @@
     id: (:),
     // university, faculty, department, program and year.
     institution: (weight: "bold", upper: true),
+    // institution lines from top to bottom.
+    // leave a key out to hide its line.
+    institution-order: (
+      "university",
+      "faculty",
+      "department",
+      "program",
+      "year",
+    ),
+    // a function that draws the institution block from its lines.
+    institution-render: auto,
     // a function that draws the whole cover from its data.
     render: auto,
   ),
@@ -146,6 +157,16 @@
     message: "must be auto or a whole number of 1 or more, e.g. `2`",
   ),
   "cover.render": hook,
+  "cover.institution-render": hook,
+  "cover.institution-order": (
+    check: v => (
+      type(v) == array
+        and v.all(k => (
+          k in ("university", "faculty", "department", "program", "year")
+        ))
+    ),
+    message: "must be a list of \"university\", \"faculty\", \"department\", \"program\" and \"year\", e.g. `(\"university\", \"program\", \"year\")`",
+  ),
   "footer.render": hook,
   "typography.caption": hook,
   "numbering.back": one-of("body", "front"),

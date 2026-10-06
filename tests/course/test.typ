@@ -1,5 +1,6 @@
 // several lecturers and students, kind above title,
-// report cover even with kind SKRIPSI, headings without page break.
+// report cover even with kind SKRIPSI, headings without page break,
+// program above university and no faculty line.
 #import "/lib.typ": *
 #show: jilid.with(
   title: [Laporan Praktikum Basis Data],
@@ -19,6 +20,7 @@
     kind-pos: "top",
     kind: (fill: luma(90), tracking: 1pt),
     institution: (upper: false),
+    institution-order: ("program", "university", "year"),
   ),
   university: "Universitas Contoh",
   faculty: "Fakultas Teknik",

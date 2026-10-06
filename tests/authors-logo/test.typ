@@ -1,4 +1,5 @@
 // 20 students with a logo, the group under "Disusun oleh :": auto columns and 10pt student text keep the cover on one page.
+// institution lines on one row.
 #import "/lib.typ": *
 #show: jilid.with(
   title: [Sistem Informasi Manajemen Data Kegiatan Kemahasiswaan Berbasis Web],
@@ -14,7 +15,12 @@
   university: "Nama Universitas",
   year: "2026",
   logo: image("/tests/assets/logo.svg"),
-  cover: (logo-width: 4cm, student-name: (size: 10pt), id: (size: 10pt)),
+  cover: (
+    logo-width: 4cm,
+    student-name: (size: 10pt),
+    id: (size: 10pt),
+    institution-render: it => text(weight: "bold", it.lines.join(" · ")),
+  ),
   labels: (students: [Disusun oleh : \ Kelompok 3]),
   outlines: (toc: false),
 )

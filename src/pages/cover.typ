@@ -64,6 +64,20 @@
     )
   }
 
+  let lines = c.institution-order.map(k => it.at(k)).filter(filled)
+  let institution = if c.institution-render == auto {
+    styled(c.institution, lines.join(linebreak()))
+  } else {
+    (c.institution-render)((
+      university: it.university,
+      faculty: it.faculty,
+      department: it.department,
+      program: it.program,
+      year: it.year,
+      lines: lines,
+    ))
+  }
+
   let body(cols) = align(center)[
     #v(c.top)
 
@@ -101,12 +115,7 @@
     #v(1fr)
     #v(c.gap-institution)
 
-    #styled(c.institution)[
-      #for line in (it.university, it.faculty, it.department, it.program) {
-        if filled(line) [#line\ ]
-      }
-      #if filled(it.year) [#it.year]
-    ]
+    #institution
   ]
 
   layout(size => {

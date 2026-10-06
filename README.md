@@ -224,6 +224,16 @@ keys you give change, e.g. `footer: (left: [Laporan Akhir])`.
   - `id`: `(:)`, the "NIP ..." and "NIM ..." lines
   - `institution`: `(weight: "bold", upper: true)`, university, faculty, department, program and year
 
+- `institution-order`\
+  type: [array]\
+  default: `("university", "faculty", "department", "program", "year")`\
+  description: Institution lines from top to bottom. Leave a key out to hide its line.
+
+- `institution-render`\
+  type: [function] or [auto]\
+  default: `auto`\
+  description: Draws the institution block yourself. The function gets one dictionary with `university`, `faculty`, `department`, `program`, `year` and `lines`, the filled lines in `institution-order`. for example, `institution-render: it => strong(it.lines.join(" · "))`.
+
 - `render`\
   type: [function] or [auto]\
   default: `auto`\

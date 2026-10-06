@@ -1,5 +1,5 @@
 // no cover, no TOC, no figures, footer text changed mid-document,
-// untitled frontmatter, a web link in the body font.
+// untitled frontmatter with its own outline, a web link in the body font.
 #import "/lib.typ": *
 #show: jilid.with(
   title: "Tanpa Sampul",
@@ -25,6 +25,7 @@
 
 #frontmatter[
   #lorem(20)
+  #outline(title: [Daftar Simbol], target: figure.where(kind: "simbol"))
 ]
 
 = Satu

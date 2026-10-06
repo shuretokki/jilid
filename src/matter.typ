@@ -3,14 +3,6 @@
 #import "pages/outlines.typ": figure-entry-rules, outlines
 
 // fail on a level-1 heading written with `=` in `fn`.
-#let no-h1(fn) = it => panic(
-  "jilid: use `title:` instead of `=` in `"
-    + fn
-    + "`, e.g. `#"
-    + fn
-    + "(title: [Judul])[..]`.",
-)
-
 #let check-body(body, fn) = {
   let children = if body.has("children") { body.children } else { (body,) }
   for c in children {
@@ -18,7 +10,15 @@
       c.func() == heading
         and c.at("level", default: auto) in (auto, 1)
         and c.at("depth", default: 1) == 1
-    ) { no-h1(fn)(c) }
+    ) {
+      panic(
+        "jilid: use `title:` instead of `=` in `"
+          + fn
+          + "`, e.g. `#"
+          + fn
+          + "(title: [Judul])[..]`.",
+      )
+    }
   }
 }
 
@@ -62,7 +62,6 @@
   let body = {
     set figure(outlined: false)
     set heading(numbering: none)
-    show heading.where(level: 1): no-h1("frontmatter")
     v.body
   }
   para-rules(cfg, title + body)
@@ -77,7 +76,6 @@
     set figure(outlined: false, numbering: x => [#prefix#x])
     set math.equation(numbering: x => [(#prefix#x)])
     set heading(numbering: none)
-    show heading.where(level: 1): no-h1("appendix")
     v.body
   }
   para-rules(cfg, if v.label != none [#title#v.label#body] else [#title#body])

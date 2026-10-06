@@ -433,7 +433,7 @@ for example:
 - `toc-indent`\
   type: [str], [auto] or [length]\
   default: `"title"`\
-  description: Where titles start in DAFTAR ISI. `"title"` lines up the chapter titles and starts each row below chapter level under the title of the level above, so "1.1" sits under "PENDAHULUAN". `auto` puts each title right after its number and uses the Typst default for the rows below. A length such as `1cm` moves each level by that length, and `0cm` puts every row at the left.
+  description: Where titles start in DAFTAR ISI. `"title"` lines up the chapter titles and starts each row below chapter level under the title of the level above, so "1.1" sits under "PENDAHULUAN". A length such as `1cm` also lines up the chapter titles and moves each lower level by that length, and `0cm` puts those rows at the left. `auto` puts each title right after its number and uses the Typst default for the rows below.
 
 ### `footer`
 

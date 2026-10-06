@@ -59,12 +59,12 @@
 
 // The width of the number column in the list `name`.
 // `name` is "toc", "back" or a figure kind.
-// DAFTAR ISI gets a column only with `toc-indent: "title"`.
+// DAFTAR ISI gets a column unless `toc-indent` is auto.
 // With "shared", the figure, table, code and appendix lists share one width.
 // none puts the number right before the title.
 #let number-width(cfg, name) = {
   let mode = if name != "toc" { cfg.outlines.align-titles } else if (
-    cfg.outlines.toc-indent == "title"
+    cfg.outlines.toc-indent != auto
   ) { "each" }
   if mode == none { return none }
   let numbered = query(heading.where(level: 1)).filter(h => (
@@ -161,15 +161,21 @@
       ))
     }
   }
-  // With `outlines.toc-indent: "title"`, a row below chapter level starts under the title of the level above.
+  // Without `toc-indent: auto`, jilid draws the rows below chapter level.
+  // "title" starts each row under the title of the level above.
+  // A length moves each level by that length.
   show outline.entry: it => {
-    if it.level < 2 or cfg.outlines.toc-indent != "title" { return it }
+    let indent = cfg.outlines.toc-indent
+    if it.level < 2 or indent == auto { return it }
+    v(0.5em, weak: true)
     context {
       let widths = level-widths()
-      let x = widths
-        .slice(0, it.level - 1)
-        .map(w => if w > 0pt { w + 0.5em } else { 0pt })
-        .sum()
+      let x = if indent == "title" {
+        widths
+          .slice(0, it.level - 1)
+          .map(w => if w > 0pt { w + 0.5em } else { 0pt })
+          .sum()
+      } else { (it.level - 1) * indent }
       pad(left: x, dotted-row(
         cfg,
         it.element.location(),
@@ -184,9 +190,6 @@
     heading(level: 1, numbering: none)[#cfg.t.toc]
     context outline(
       title: none,
-      indent: if cfg.outlines.toc-indent == "title" { auto } else {
-        cfg.outlines.toc-indent
-      },
       depth: cfg.outlines.depth,
       target: target(),
     )

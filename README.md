@@ -53,10 +53,7 @@ function in a show rule. If you want to change an existing project to use this t
 
 ## Fonts
 
-The body font is Typst's bundled Libertinus Serif, so the template
-compiles without font warnings. Most campus guidelines ask for Times New
-Roman, which Typst cannot ship. To use it, install it or upload the font
-files to your web app project, then set:
+The body font is Typst's bundled Libertinus Serif. Most campus guidelines ask for Times New Roman. To use it, install it or upload the font files to your web app project, then set:
 
 ```typ
 #show: jilid.with(typography: (font-family: "Times New Roman"))
@@ -555,12 +552,12 @@ the error message lists the missing ones.
 
 ## Migrating from 0.1
 
-- `appendices[= A ... = B ...]` becomes one `appendix(title: [A])[..]` per appendix.
+- `appendices[]` becomes one `appendix(title: [..])[..]` per appendix.
 - `frontmatter[= Title ..]` becomes `frontmatter(title: [Title])[..]`.
-- DAFTAR ISI lines up titles and starts sub-chapter rows under the chapter title. For the old look, set `outlines: (toc-indent: auto)`.
 - `frontmatter` no longer takes `numbering`, `start-page` or `outlined`.
 - `margin` is `"digital"` by default. For the old margins, set `margin: "print"`.
 - Lecturer names are plain by default. For the old look, set `cover: (lecturer-name: (weight: "bold", style: "italic", underline: true))`.
+- DAFTAR ISI lines up titles and starts sub-chapter rows under the chapter title. For the old look, set `outlines: (toc-indent: auto)`.
 
 ## Contributing
 

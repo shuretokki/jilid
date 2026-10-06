@@ -23,13 +23,13 @@ The template initializes your project with a sample call to the `jilid`
 function in a show rule. If you want to change an existing project to use this template, add a show rule like this at the top of your file:
 
 ```typ
-#import "@preview/jilid:0.1.0": jilid, frontmatter, appendix
+#import "@preview/jilid:0.2.0": jilid, frontmatter, appendix
 
 #show: jilid.with(
-  title: [Judul Dokumen],
-  kind: [Jenis Dokumen],
+  title: [Judul Laporan],
+  kind: [Laporan Kerja Praktik],
   course: "Nama Mata Kuliah",
-  lecturers: (name: "Nama Dosen", id: "10000000000000000"),
+  lecturers: (name: "Nama Dosen, S.Kom., M.Kom.", id: "10000000000000000"),
   students: (
     (name: "Nama Mahasiswa", id: "1000000001"),
   ),
@@ -37,10 +37,12 @@ function in a show rule. If you want to change an existing project to use this t
   faculty: "Teknik",
   university: "Universitas Negeri",
   year: "2026",
-  // logo: image("logo.png"),
-  // cover-details: (([Mitra Kolaborator:], [Nama Mitra]),),
-  // typography: (font-family: "Times New Roman"),
   bibliography: bibliography("refs.bib", style: "apa"),
+  // logo: image("logo.png"),
+  // cover-details: (([Mitra], [Nama Mitra]),),
+  // typography: (font-family: "Times New Roman"),
+  // margin: "print",
+  // numbering: (position: "top"),
 )
 
 #frontmatter(title: [Kata Pengantar])[ ... ]
@@ -48,7 +50,7 @@ function in a show rule. If you want to change an existing project to use this t
 = Pendahuluan
 ...
 
-#appendix(title: [Dokumentasi Kegiatan])[ ... ]
+#appendix(title: [Data Pengujian])[ ... ]
 ```
 
 ## Fonts
@@ -63,7 +65,7 @@ The body font is Typst's bundled Libertinus Serif. Most campus guidelines ask fo
 
 - [zebraw](https://typst.app/universe/package/zebraw): code blocks with
   line numbers (turn off with `code: (zebraw: false)`). Re-exported, so
-  `#import "@preview/jilid:0.1.0": zebraw` gives you its full API.
+  `#import "@preview/jilid:0.2.0": zebraw` gives you its full API.
 
 ## Document structure
 
@@ -563,7 +565,7 @@ the error message lists the missing ones.
 
 Bug reports and requests for campus rules jilid does not support yet are
 welcome as [GitHub issues](https://github.com/shuretokki/jilid/issues). See
-[CONTRIBUTING.md](https://github.com/shuretokki/jilid/blob/v0.1.0/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/shuretokki/jilid/blob/v0.2.0/CONTRIBUTING.md)
 for development.
 
 ## License

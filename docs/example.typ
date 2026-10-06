@@ -1,4 +1,4 @@
-#import "@preview/jilid:0.1.0": (
+#import "@preview/jilid:0.2.0": (
   appendix, frontmatter, jilid, set-footer-text, signature, signatures, zebraw,
 )
 

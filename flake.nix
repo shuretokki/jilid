@@ -33,6 +33,7 @@
               typst
               typstyle
               tinymist
+              git-cliff
             ] ++ lib.optional (system == "x86_64-linux") tytanic;
           };
         };

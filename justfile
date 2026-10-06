@@ -9,6 +9,8 @@ typstyle := require("typstyle")
 tinymist := require("tinymist")
 # https://github.com/typst-community/tytanic
 tt := require("tt")
+# https://git-cliff.org
+git-cliff := require("git-cliff")
 
 TYP_PATHS := (
     "lib.typ " +
@@ -33,6 +35,11 @@ PACKAGES := env("JILID_PACKAGES", "../typst-packages")
 @example:
     just _render docs/example.typ docs/example.pdf
     echo "docs/example.pdf: $(du -h docs/example.pdf | cut -f1)"
+
+# Write CHANGELOG.md, with new commits under the typst.toml version
+[group("release")]
+@changelog:
+    git-cliff --tag "v$(just _version)" -o CHANGELOG.md
 
 # Test the package built from the last commit, without touching the packages repo
 [group("release")]

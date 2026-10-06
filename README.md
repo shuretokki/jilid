@@ -158,7 +158,7 @@ keys you give change, e.g. `footer: (left: [Laporan Akhir])`.
 
 - `margin`\
   type: [str], [length] or [dictionary]\
-  default: `"print"`\
+  default: `"digital"`\
   description: `"print"` has 4 cm on the left and 3 cm elsewhere, for bound copies. `"digital"` has 1 inch all round. Any [page margin] value also works.
 
 - `include-cover`\
@@ -219,7 +219,7 @@ keys you give change, e.g. `footer: (left: [Laporan Akhir])`.
   - `details`: `(size: 14pt, weight: "bold")`, the `cover-details` rows
   - `label`: `(:)`, "Mata Kuliah :", "Dosen Pengampu :", "Disusun oleh :"
   - `course`: `(weight: "bold")`
-  - `lecturer-name`: `(weight: "bold", style: "italic", underline: true)`
+  - `lecturer-name`: `(:)`
   - `student-name`: `(:)`
   - `id`: `(:)`, the "NIP ..." and "NIM ..." lines
   - `institution`: `(weight: "bold", upper: true)`, university, faculty, department, program and year
@@ -230,8 +230,7 @@ keys you give change, e.g. `footer: (left: [Laporan Akhir])`.
   description: Draws the whole cover yourself. The function gets one dictionary with `title`, `kind`, `subtitle`, `details`, `course`, `lecturers`, `students`, `logo`, `university`, `faculty`, `department`, `program` (the last three already prefixed, e.g. "FAKULTAS Teknik"), `year` and `labels`. The styles and layout options above no longer apply.
 
 If the cover runs onto a second page, lower `logo-width`, the `details`
-size or the `gap-*` options, set `student-columns`, or use
-`margin: "digital"`.
+size or the `gap-*` options, or set `student-columns`.
 
 for example:
 
@@ -534,6 +533,8 @@ the error message lists the missing ones.
 - `appendices[= A ... = B ...]` becomes one `appendix(title: [A])[..]` per appendix.
 - `frontmatter[= Title ..]` becomes `frontmatter(title: [Title])[..]`.
 - `frontmatter` no longer takes `numbering`, `start-page` or `outlined`.
+- `margin` is `"digital"` by default. For the old margins, set `margin: "print"`.
+- Lecturer names are plain by default. For the old look, set `cover: (lecturer-name: (weight: "bold", style: "italic", underline: true))`.
 
 ## Contributing
 

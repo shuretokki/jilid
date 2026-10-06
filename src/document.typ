@@ -37,7 +37,7 @@
   lang: "id",
   paper: "a4",
   // "print", "digital" or any `page.margin` value.
-  margin: "print",
+  margin: "digital",
   // auto shows the cover when `title` is not empty.
   include-cover: auto,
   cover: (:),

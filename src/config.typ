@@ -25,7 +25,7 @@
     details: (size: 14pt, weight: "bold"),
     label: (:),
     course: (weight: "bold"),
-    lecturer-name: (weight: "bold", style: "italic", underline: true),
+    lecturer-name: (:),
     student-name: (:),
     // "NIP ..." and "NIM ..." lines.
     id: (:),

@@ -36,12 +36,30 @@
   }
 }
 
-// a front matter page such as Kata Pengantar or Abstrak.
-// it renders before the table of contents, wherever you write it.
+/// A front matter page, such as Kata Pengantar or Abstrak.
+///
+/// Front matter is the pages before the table of contents.
+/// jilid puts each `frontmatter` page there, in the order you write them.
+/// You can write them anywhere in the file.
+/// For a heading inside the page, use `==` or deeper.
+/// If you write a `=` heading inside, jilid stops with an error.
+///
+/// ```example
+/// #frontmatter(title: [Kata Pengantar])[
+///   Puji syukur ...
+/// ]
+/// ```
+///
+/// - title (content, str, none): The page title. jilid shows it like a chapter title, centered and without a number.
+/// - removed (arguments): Arguments that jilid 0.2 removed: `numbering`, `start-page` and `outlined`. If you give one of them, jilid stops with an error that tells you what changed.
+/// - body (content): The text of the page.
+/// -> content
 #let frontmatter(
-  // styled like a chapter title, centered and unnumbered.
+  /// The page title. jilid shows it like a chapter title, centered and without a number.
   title: none,
+  /// Arguments that jilid 0.2 removed. If you give one, jilid stops with an error.
   ..removed,
+  /// The text of the page.
   body,
 ) = {
   check-removed(removed, "frontmatter")
@@ -49,12 +67,33 @@
   [#metadata((kind: sections.front, title: title, body: body)) <jilid-matter>]
 }
 
-// one appendix, numbered by call order: "Lampiran 1. Title".
-// it renders after the bibliography, wherever you write it.
+/// One appendix, such as Lampiran 1. Kuesioner.
+///
+/// jilid puts every appendix after the bibliography, in the order you write them.
+/// You can write them anywhere in the file.
+/// jilid numbers each appendix by its place in that order.
+/// Figures, tables and equations inside get the appendix number, such as Gambar L1.2.
+/// For a heading inside the appendix, use `==` or deeper.
+/// If you write a `=` heading inside, jilid stops with an error.
+///
+/// ```example
+/// #appendix(title: [Kuesioner], label: <kuesioner>)[
+///   Daftar pertanyaan ...
+/// ]
+///
+/// Lihat @kuesioner.
+/// ```
+///
+/// - title (content, str, none): The appendix title. jilid shows it after the number, such as "Lampiran 1. Kuesioner".
+/// - label (label, none): A label that you can refer to with `@`, such as `<kuesioner>`.
+/// - body (content): The text of the appendix.
+/// -> content
 #let appendix(
+  /// The appendix title. jilid shows it after the number.
   title: none,
-  // a label to refer to the appendix, e.g. `<kuesioner>`.
+  /// A label that you can refer to with `@`, such as `<kuesioner>`.
   label: none,
+  /// The text of the appendix.
   body,
 ) = {
   assert(

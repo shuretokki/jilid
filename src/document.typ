@@ -10,48 +10,109 @@
 #import "matter.typ": flow
 #import "utils.typ": plain
 
-/// format a report, proposal or thesis for an Indonesian university.
-/// use it as `#show: jilid.with(..)`.
-/// option groups take only the keys you change, see `src/config.typ`.
+/// Formats a report, proposal or thesis for an Indonesian university.
+///
+/// Use it as a show rule at the top of the file.
+/// jilid makes the cover, the front matter, the lists of contents, figures and tables, the chapters, the bibliography and the appendices.
+/// Each option group, such as `cover` or `footer`, takes only the keys that you change.
+/// The README lists every key and its default value.
+///
+/// ```example
+/// #show: jilid.with(
+///   title: [Judul Laporan],
+///   students: (name: "Nama Mahasiswa", id: "1000000001"),
+///   university: "Universitas Negeri",
+///   year: "2026",
+/// )
+///
+/// = Pendahuluan
+/// ```
+///
+/// - title (content, str): The document title. If it is not empty, jilid makes a cover.
+/// - kind (content, str, none): The document type, such as Laporan Praktikum or Skripsi.
+/// - subtitle (content, str): A second title line under the title.
+/// - cover-details (array): Extra (label, value) rows under the title, such as `(([Mitra], [Nama Mitra]),)`.
+/// - course (content, str): The course name.
+/// - lecturers (dictionary, array): One or more lecturers as `(name: .., id: ..)`.
+/// - students (dictionary, array): One or more students as `(name: .., id: ..)`.
+/// - program (content, str): The study program.
+/// - department (content, str): The department.
+/// - faculty (content, str): The faculty.
+/// - university (content, str): The university.
+/// - year (content, str): The year on the cover.
+/// - logo (content, none): The logo, such as `image("logo.png")`.
+/// - bibliography (content, none): The result of `bibliography(..)`. jilid puts it after the last chapter.
+/// - lang (str): The text language. `"id"` and `"en"` are built in.
+/// - paper (str): The paper size, such as `"a4"`.
+/// - margin (str, length, dictionary): `"digital"` gives 1 inch on all sides. `"print"` gives 4 cm on the left and 3 cm on the other sides. Any page margin value also works.
+/// - include-cover (bool, auto): If `auto`, jilid makes a cover when `title` is not empty.
+/// - cover (dictionary): The cover layout and text styles.
+/// - footer (dictionary): The footer text and page number.
+/// - typography (dictionary): The fonts and text sizes.
+/// - paragraph (dictionary): The paragraph and list layout.
+/// - numbering (dictionary): The number styles for pages, chapters, sections and appendices.
+/// - outlines (dictionary): The lists of contents, figures, tables, code and appendices.
+/// - headings (dictionary): The heading sizes and space.
+/// - code (dictionary): The code block style.
+/// - labels (dictionary): Replacements for the words that jilid prints, such as `(figure: "Gbr.")`.
+/// - body (content): The document. The show rule gives it to jilid.
+/// -> content
 #let jilid(
+  /// The document title. If it is not empty, jilid makes a cover.
   title: "",
+  /// The document type, such as Laporan Praktikum or Skripsi.
   kind: none,
+  /// A second title line under the title.
   subtitle: "",
-  // extra (label, value) rows under the title,
-  // e.g. `(([Mitra Kolaborator], [Nama Mitra]),)`.
+  /// Extra (label, value) rows under the title, such as `(([Mitra], [Nama Mitra]),)`.
   cover-details: (),
+  /// The course name.
   course: "",
-  // one or more `(name: .., id: ..)`.
+  /// One or more lecturers as `(name: .., id: ..)`.
   lecturers: (),
-  // one or more `(name: .., id: ..)`.
+  /// One or more students as `(name: .., id: ..)`.
   students: (),
+  /// The study program.
   program: "",
+  /// The department.
   department: "",
+  /// The faculty.
   faculty: "",
+  /// The university.
   university: "",
+  /// The year on the cover.
   year: "",
-  // content,
-  // e.g. `image("logo.png")`.
+  /// The logo, such as `image("logo.png")`.
   logo: none,
-  // the result of `bibliography(..)`, or none.
+  /// The result of `bibliography(..)`. jilid puts it after the last chapter.
   bibliography: none,
+  /// The text language. `"id"` and `"en"` are built in.
   lang: "id",
+  /// The paper size, such as `"a4"`.
   paper: "a4",
-  // "print", "digital" or any `page.margin` value.
+  /// `"digital"`, `"print"` or any page margin value.
   margin: "digital",
-  // auto shows the cover when `title` is not empty.
+  /// If `auto`, jilid makes a cover when `title` is not empty.
   include-cover: auto,
+  /// The cover layout and text styles.
   cover: (:),
+  /// The footer text and page number.
   footer: (:),
+  /// The fonts and text sizes.
   typography: (:),
+  /// The paragraph and list layout.
   paragraph: (:),
+  /// The number styles for pages, chapters, sections and appendices.
   numbering: (:),
+  /// The lists of contents, figures, tables, code and appendices.
   outlines: (:),
+  /// The heading sizes and space.
   headings: (:),
+  /// The code block style.
   code: (:),
-  // replaces any word jilid prints,
-  // e.g. `(figure: "Gbr.")`.
+  /// Replacements for the words that jilid prints, such as `(figure: "Gbr.")`.
   labels: (:),
+  /// The document. The show rule gives it to jilid.
   body,
 ) = {
   let cfg = merge(defaults, (

@@ -2,14 +2,42 @@
 
 #import "utils.typ": filled
 
-// one signature with a role, space to sign, name and id.
+/// One signature block, with a role, space to sign, a name and an ID.
+///
+/// jilid keeps the block on one page.
+/// The name is bold. If there is no ID, jilid keeps an empty line in its place, so names in a row stay level.
+/// To put signatures side by side, give them to `signatures`.
+///
+/// ```example
+/// #signature(
+///   role: [Dosen Pembimbing],
+///   name: "Nama Dosen",
+///   id: "10000000000000000",
+/// )
+/// ```
+///
+/// - role (content, str, none): The role above the space, such as Dosen Pembimbing.
+/// - name (content, str, none): The name under the space.
+/// - id (content, str, none): The ID under the name.
+/// - id-label (content, str, none): The word before the ID, such as NIP or NIM.
+/// - space (length): The height of the space to sign in.
+/// - underline-name (bool): If `true`, jilid underlines the name.
+/// - alignment (alignment): The horizontal alignment of the block.
+/// -> content
 #let signature(
+  /// The role above the space, such as Dosen Pembimbing.
   role: none,
+  /// The name under the space.
   name: none,
+  /// The ID under the name.
   id: none,
+  /// The word before the ID, such as NIP or NIM.
   id-label: "NIP",
-  space: 2cm, // height of the blank space to sign in.
+  /// The height of the space to sign in.
+  space: 2cm,
+  /// If `true`, jilid underlines the name.
   underline-name: false,
+  /// The horizontal alignment of the block.
   alignment: center,
 ) = block(width: 100%, breakable: false, {
   set align(alignment)
@@ -31,11 +59,35 @@
   lines.join(linebreak())
 })
 
-/// signatures in rows under a full-width `header`.
-/// `columns` signatures per row.
-/// names in a row line up.
-/// a shorter last row sits in the center.
-#let signatures(header: none, columns: 2, gutter: 1cm, ..items) = {
+/// Signature blocks in rows, under a header that spans the full width.
+///
+/// Each row has `columns` signatures, and the names in a row are level.
+/// If the last row has fewer signatures, jilid puts it in the center.
+/// jilid keeps the header on the same page as the first row.
+///
+/// ```example
+/// #signatures(
+///   header: [Kota, 1 Januari 2026 \ Mengetahui,],
+///   signature(role: [Dosen], name: "Nama Dosen"),
+///   signature(role: [Mahasiswa], name: "Nama Mahasiswa", id-label: "NIM"),
+/// )
+/// ```
+///
+/// - header (content, none): The text above the first row, such as the place, the date and "Mengetahui,".
+/// - columns (int): The number of signatures in each row.
+/// - gutter (length): The space between rows.
+/// - items (content): The `signature` blocks, in order.
+/// -> content
+#let signatures(
+  /// The text above the first row, such as the place, the date and "Mengetahui,".
+  header: none,
+  /// The number of signatures in each row.
+  columns: 2,
+  /// The space between rows.
+  gutter: 1cm,
+  /// The `signature` blocks, in order.
+  ..items,
+) = {
   assert(
     items.named().len() == 0,
     message: "jilid: unknown argument(s) for `signatures`: "
@@ -63,6 +115,17 @@
   stack(spacing: gutter, ..rows)
 }
 
-// change the footer text from this page on.
-// none restores `footer.left`.
-#let set-footer-text(body) = footer-text.update(body)
+/// Changes the footer text from this page on.
+///
+/// If you give `none`, jilid shows the `footer.left` text again.
+///
+/// ```example
+/// #set-footer-text[Bab II Tinjauan Pustaka]
+/// ```
+///
+/// - body (content, str, none): The new footer text.
+/// -> content
+#let set-footer-text(
+  /// The new footer text.
+  body,
+) = footer-text.update(body)

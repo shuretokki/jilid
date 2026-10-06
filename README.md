@@ -425,15 +425,15 @@ for example:
   default: `"."`\
   description: Text repeated between an entry and its page number. `none` removes it.
 
-- `align-numbers`\
+- `align-titles`\
   type: [str] or `none`\
-- `indent`\
+  default: `"each"`\
+  description: Where titles start in Daftar Gambar, Tabel, Kode and Lampiran. `"each"` starts every title in a list at the same place, after the widest number such as "Gambar 2.10". `"shared"` uses one place for all of these lists. `none` puts each title right after its number.
+
+- `toc-indent`\
   type: [str], [auto] or [length]\
   default: `"title"`\
-  description: Where a row below chapter level starts in DAFTAR ISI. `"title"` starts it under the title of the level above, so "1.1" sits under "PENDAHULUAN". `auto` uses the Typst default. A length such as `1cm` moves each level by that length, and `0cm` puts every row at the left.
-
-  default: `"list"`\
-  description: `"list"` starts every title in a list at the same place, after the widest number such as "BAB VIII" or "Gambar 2.10". `"all"` uses one place for the figure, table, code and appendix lists. DAFTAR ISI always uses its own place. `none` puts each title right after its number.
+  description: Where titles start in DAFTAR ISI. `"title"` lines up the chapter titles and starts each row below chapter level under the title of the level above, so "1.1" sits under "PENDAHULUAN". `auto` puts each title right after its number and uses the Typst default for the rows below. A length such as `1cm` moves each level by that length, and `0cm` puts every row at the left.
 
 ### `footer`
 
@@ -557,7 +557,7 @@ the error message lists the missing ones.
 
 - `appendices[= A ... = B ...]` becomes one `appendix(title: [A])[..]` per appendix.
 - `frontmatter[= Title ..]` becomes `frontmatter(title: [Title])[..]`.
-- DAFTAR ISI lines up titles and starts sub-chapter rows under the chapter title. For the old look, set `outlines: (align-numbers: none, indent: auto)`.
+- DAFTAR ISI lines up titles and starts sub-chapter rows under the chapter title. For the old look, set `outlines: (toc-indent: auto)`.
 - `frontmatter` no longer takes `numbering`, `start-page` or `outlined`.
 - `margin` is `"digital"` by default. For the old margins, set `margin: "print"`.
 - Lecturer names are plain by default. For the old look, set `cover: (lecturer-name: (weight: "bold", style: "italic", underline: true))`.

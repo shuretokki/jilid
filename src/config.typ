@@ -115,16 +115,16 @@
     // The text between an entry and its page number, repeated to fill the line.
     // none removes it.
     leader: ".",
-    // "list" starts every title in a list at the same place.
-    // "all" uses one place for the figure, table, code and appendix lists.
-    // DAFTAR ISI always uses its own place.
+    // Where titles start in Daftar Gambar, Tabel, Kode and Lampiran.
+    // "each" starts every title in a list at the same place, after the widest number such as "Gambar 2.10".
+    // "shared" uses one place for all of these lists.
     // none puts each title right after its number.
-    align-numbers: "list",
-    // Where a row below chapter level starts in DAFTAR ISI.
-    // "title" starts it under the title of the level above.
-    // auto uses the Typst default.
+    align-titles: "each",
+    // Where titles start in DAFTAR ISI.
+    // "title" lines up the chapter titles, and a row below chapter level starts under the title of the level above.
+    // auto puts each title right after its number and uses the Typst default for the rows below.
     // A length, such as 1cm, moves each level by that length. 0cm puts every row at the left.
-    indent: "title",
+    toc-indent: "title",
   ),
   headings: (
     // Chapter titles and front matter titles.
@@ -184,8 +184,8 @@
   "typography.caption": hook,
   "numbering.back": one-of("body", "front"),
   "numbering.position": one-of("bottom", "top"),
-  "outlines.align-numbers": one-of("list", "all", none),
-  "outlines.indent": (
+  "outlines.align-titles": one-of("each", "shared", none),
+  "outlines.toc-indent": (
     check: v => v in ("title", auto) or type(v) in (length, relative),
     message: "must be \"title\", auto or a length, e.g. `1cm`",
   ),

@@ -59,11 +59,13 @@
 
 // The width of the number column in the list `name`.
 // `name` is "toc", "back" or a figure kind.
-// With "all", the figure, table, code and appendix lists share one width.
-// DAFTAR ISI always keeps its own width.
+// DAFTAR ISI gets a column only with `toc-indent: "title"`.
+// With "shared", the figure, table, code and appendix lists share one width.
 // none puts the number right before the title.
 #let number-width(cfg, name) = {
-  let mode = cfg.outlines.align-numbers
+  let mode = if name != "toc" { cfg.outlines.align-titles } else if (
+    cfg.outlines.toc-indent == "title"
+  ) { "each" }
   if mode == none { return none }
   let numbered = query(heading.where(level: 1)).filter(h => (
     h.numbering != none and h.outlined
@@ -80,9 +82,9 @@
       .filter(f => f.caption != none and f.at("outlined", default: true))
       .map(figure-prefix)
   }
-  let names = if mode == "all" and name != "toc" {
-    ("back", image, table, raw)
-  } else { (name,) }
+  let names = if mode == "shared" { ("back", image, table, raw) } else {
+    (name,)
+  }
   widest(names.map(rows).flatten())
 }
 
@@ -159,9 +161,9 @@
       ))
     }
   }
-  // With `outlines.indent: "title"`, a row below chapter level starts under the title of the level above.
+  // With `outlines.toc-indent: "title"`, a row below chapter level starts under the title of the level above.
   show outline.entry: it => {
-    if it.level < 2 or cfg.outlines.indent != "title" { return it }
+    if it.level < 2 or cfg.outlines.toc-indent != "title" { return it }
     context {
       let widths = level-widths()
       let x = widths
@@ -173,9 +175,7 @@
         it.element.location(),
         it.prefix(),
         it.element.body,
-        width: if cfg.outlines.align-numbers != none {
-          widths.at(it.level - 1)
-        },
+        width: widths.at(it.level - 1),
       ))
     }
   }
@@ -184,8 +184,8 @@
     heading(level: 1, numbering: none)[#cfg.t.toc]
     context outline(
       title: none,
-      indent: if cfg.outlines.indent == "title" { auto } else {
-        cfg.outlines.indent
+      indent: if cfg.outlines.toc-indent == "title" { auto } else {
+        cfg.outlines.toc-indent
       },
       depth: cfg.outlines.depth,
       target: target(),

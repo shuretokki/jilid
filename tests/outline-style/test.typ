@@ -5,8 +5,8 @@
   outlines: (
     h1: (weight: "regular"),
     leader: none,
-    align-numbers: "all",
-    indent: 0cm,
+    align-titles: "shared",
+    toc-indent: 0cm,
   ),
 )
 

@@ -127,7 +127,32 @@ $ overline(t) = 1 / n sum_(i=1)^n t_i $ <persamaan-tunggu>
 == Alur Sistem
 
 #figure(
-  rect(width: 8cm, height: 4cm, fill: luma(230)),
+  {
+    import "@preview/fletcher:0.5.8": diagram, edge, node, shapes
+    diagram(
+      node-stroke: 0.6pt,
+      spacing: (2.5em, 1.6em),
+      node((0, 0), [Mulai], shape: shapes.pill),
+      edge("-|>"),
+      node((0, 1), [Pilih ruang dan jam]),
+      edge("-|>"),
+      node((0, 2), [Ruang tersedia?], shape: shapes.diamond),
+      edge("-|>", [Ya]),
+      node((0, 3), [Pesan ruang]),
+      edge("-|>"),
+      node((0, 4), [Selesai], shape: shapes.pill),
+      edge(
+        (0, 2),
+        (1, 2),
+        (1, 1),
+        (0, 1),
+        "-|>",
+        [Tidak],
+        label-pos: 0.1,
+        label-side: right,
+      ),
+    )
+  },
   caption: [Alur peminjaman ruang],
 ) <gambar-alur>
 
